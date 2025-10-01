@@ -20,14 +20,18 @@
       font-size: 28px;
       cursor: pointer;
       position: fixed;
-      top: 20px;
+      top: 40px;
       right: 20px;
       z-index: 1001;
       color: #c40000;
-      background: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      background: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: background 0.3s;
+    }
+    .menu-icon:hover {
+      background: #f2f2f2;
     }
 
     /* منوی کشویی از بغل */
@@ -39,18 +43,21 @@
       right: 0;
       background-color: #c40000;
       overflow-x: hidden;
-      transition: 0.4s;
-      padding-top: 60px;
+      transition: width 0.4s ease;
+      padding-top: 80px;
       z-index: 1000;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+      border-top-left-radius: 12px;
+      border-bottom-left-radius: 12px;
     }
 
     .side-menu a {
-      padding: 12px 25px;
+      padding: 14px 30px;
       text-decoration: none;
       font-size: 18px;
       color: white;
       display: block;
-      transition: 0.3s;
+      transition: background 0.3s;
     }
 
     .side-menu a:hover {
@@ -59,11 +66,42 @@
 
     .close-btn {
       position: absolute;
-      top: 15px;
-      right: 20px;
-      font-size: 30px;
+      top: 25px;
+      right: 25px;
+      font-size: 32px;
       color: white;
       cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-btn:hover {
+      color: #ffdddd;
+    }
+
+    /* زیرمنوها */
+    .menu-group {
+      position: relative;
+    }
+    .menu-group .main-link {
+      font-weight: bold;
+      background-color: #c40000;
+    }
+    .menu-group .submenu {
+      display: none;
+      background-color: #a00000;
+      padding-right: 10px;
+    }
+    .menu-group:hover .submenu {
+      display: block;
+    }
+    .submenu a {
+      font-size: 16px;
+      padding: 10px 35px;
+      color: #fff;
+      display: block;
+      text-decoration: none;
+    }
+    .submenu a:hover {
+      background-color: #880000;
     }
 
     /* هدر */
@@ -129,14 +167,59 @@
 <!-- آیکون منو -->
 <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
-<!-- منوی کشویی -->
+<!-- منوی کشویی با زیرمنوها -->
 <div id="sideMenu" class="side-menu">
   <span class="close-btn" onclick="toggleMenu()">×</span>
   <a href="index.html">خانه</a>
-  <a href="products/products-women.html">زنانه</a>
-  <a href="products/products-men.html">مردانه</a>
-  <a href="products/products-kids.html">بچگانه</a>
-  <a href="products/products-accessories.html">اکسسوری</a>
+
+  <!-- مردانه -->
+  <div class="menu-group">
+    <a href="products/products-men.html" class="main-link">مردانه ▾</a>
+    <div class="submenu">
+      <a href="products/products-men.html#suits">کت و شلوار</a>
+      <a href="products/products-men.html#shirts">پیراهن</a>
+      <a href="products/products-men.html#pants">شلوار</a>
+      <a href="products/products-men.html#shoes">کفش</a>
+      <a href="products/products-men.html#watches">ساعت</a>
+    </div>
+  </div>
+
+  <!-- زنانه -->
+  <div class="menu-group">
+    <a href="products/products-women.html" class="main-link">زنانه ▾</a>
+    <div class="submenu">
+      <a href="products/products-women.html#mantos">مانتو</a>
+      <a href="products/products-women.html#dresses">لباس مجلسی</a>
+      <a href="products/products-women.html#skirts">دامن</a>
+      <a href="products/products-women.html#bags">کیف</a>
+      <a href="products/products-women.html#scarves">روسری</a>
+    </div>
+  </div>
+
+  <!-- بچگانه -->
+  <div class="menu-group">
+    <a href="products/products-kids.html" class="main-link">بچگانه ▾</a>
+    <div class="submenu">
+      <a href="products/products-kids.html#girls">لباس دخترانه</a>
+      <a href="products/products-kids.html#boys">لباس پسرانه</a>
+      <a href="products/products-kids.html#shoes">کفش</a>
+      <a href="products/products-kids.html#hats">کلاه</a>
+      <a href="products/products-kids.html#bags">کوله‌پشتی</a>
+    </div>
+  </div>
+
+  <!-- اکسسوری -->
+  <div class="menu-group">
+    <a href="products/products-accessories.html" class="main-link">اکسسوری ▾</a>
+    <div class="submenu">
+      <a href="products/products-accessories.html#necklaces">گردنبند</a>
+      <a href="products/products-accessories.html#earrings">گوشواره</a>
+      <a href="products/products-accessories.html#rings">انگشتر</a>
+      <a href="products/products-accessories.html#belts">کمربند</a>
+      <a href="products/products-accessories.html#glasses">عینک</a>
+    </div>
+  </div>
+
   <a href="#contact">تماس با ما</a>
   <a href="#about">درباره ما</a>
 </div>
@@ -158,27 +241,4 @@
     <h3>مردانه</h3>
   </a>
   <a href="products/products-kids.html" class="category">
-    <img src="https://img.freepik.com/free-photo/kids-clothing-set-isolated_1203-7387.jpg" alt="بچگانه">
-    <h3>بچگانه</h3>
-  </a>
-  <a href="products/products-accessories.html" class="category">
-    <img src="https://img.freepik.com/free-photo/fashion-scarf-isolated_1203-7395.jpg" alt="اکسسوری">
-    <h3>اکسسوری</h3>
-  </a>
-</div>
-
-<!-- فوتر -->
-<footer>
-  <p>© ۲۰۲۵ بوتیک علی | طراحی با عشق</p>
-</footer>
-
-<!-- اسکریپت منو -->
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("sideMenu");
-    menu.style.width = (menu.style.width === "250px") ? "0" : "250px";
-  }
-</script>
-
-</body>
-</html>
+    <img src="https://img.freepik.com/free-photo/kids-clothing-set-isolated_1203
