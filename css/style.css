@@ -1,1 +1,54 @@
-slm
+.main-nav {
+  background: #c40000;
+  padding: 0;
+  direction: rtl;
+}
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.main-nav ul li {
+  position: relative;
+}
+.main-nav ul li a {
+  display: block;
+  padding: 15px 20px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.main-nav ul li a:hover {
+  background: #a00000;
+}
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 0 0 5px 5px;
+  z-index: 1000;
+}
+.submenu li a {
+  color: #c40000;
+  padding: 10px 15px;
+  display: block;
+}
+.submenu li a:hover {
+  background: #f2f2f2;
+}
+.main-nav ul li:hover .submenu {
+  display: block;
+}
+@media (max-width: 600px) {
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
