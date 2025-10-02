@@ -33,6 +33,10 @@
       margin: 0;
     }
 
+    nav.sidebar ul li {
+      position: relative;
+    }
+
     nav.sidebar ul li a {
       display: block;
       padding: 14px 20px;
@@ -44,6 +48,31 @@
 
     nav.sidebar ul li a:hover {
       background: #880000;
+    }
+
+    .submenu {
+      display: none;
+      background: #a00000;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    nav.sidebar ul li:hover .submenu {
+      display: block;
+    }
+
+    .submenu li a {
+      padding: 10px 30px;
+      font-size: 15px;
+      color: #fff;
+    }
+
+    .submenu li a:hover {
+      background-color: #880000;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
     }
 
     .main-content {
@@ -168,8 +197,47 @@
 
 <nav class="sidebar">
   <ul>
-    <li><a href="index.html">خانه</a></li>
     <li><a href="cart.html">سبد خرید 🛒</a></li>
+    <li>
+      <a href="#">مردانه ▾</a>
+      <ul class="submenu">
+        <li><a href="products/products-men.html#suits">کت و شلوار</a></li>
+        <li><a href="products/products-men.html#shirts">پیراهن</a></li>
+        <li><a href="products/products-men.html#pants">شلوار</a></li>
+        <li><a href="products/products-men.html#shoes">کفش</a></li>
+        <li><a href="products/products-men.html#watches">ساعت</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">زنانه ▾</a>
+      <ul class="submenu">
+        <li><a href="products/products-women.html#mantos">مانتو</a></li>
+        <li><a href="products/products-women.html#dresses">لباس مجلسی</a></li>
+        <li><a href="products/products-women.html#skirts">دامن</a></li>
+        <li><a href="products/products-women.html#bags">کیف</a></li>
+        <li><a href="products/products-women.html#scarves">روسری</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">بچگانه ▾</a>
+      <ul class="submenu">
+        <li><a href="products/products-kids.html#girls">لباس دخترانه</a></li>
+        <li><a href="products/products-kids.html#boys">لباس پسرانه</a></li>
+        <li><a href="products/products-kids.html#shoes">کفش</a></li>
+        <li><a href="products/products-kids.html#hats">کلاه</a></li>
+        <li><a href="products/products-kids.html#bags">کوله‌پشتی</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">اکسسوری ▾</a>
+      <ul class="submenu">
+        <li><a href="products/products-accessories.html#necklaces">گردنبند</a></li>
+        <li><a href="products/products-accessories.html#earrings">گوشواره</a></li>
+        <li><a href="products/products-accessories.html#rings">انگشتر</a></li>
+        <li><a href="products/products-accessories.html#belts">کمربند</a></li>
+        <li><a href="products/products-accessories.html#glasses">عینک</a></li>
+      </ul>
+    </li>
     <li><a href="#contact">تماس با ما</a></li>
     <li><a href="#about">درباره ما</a></li>
   </ul>
@@ -186,27 +254,5 @@
     <div class="product-grid">
 
       <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/red-dress-hanger-modern-wall_144627-37927.jpg" alt="لباس مجلسی قرمز">
-        <h3>لباس مجلسی قرمز</h3>
-        <p>۲۵٪ تخفیف</p>
-        <button class="add-to-cart">افزودن به سبد خرید</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/golden-necklace-display-jewelry_144627-37960.jpg" alt="گردنبند طلایی">
-        <h3>گردنبند طلایی</h3>
-        <p>۳۰٪ تخفیف</p>
-        <button class="add-to-cart">افزودن به سبد خرید</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/kids-clothing-set-red-background_144627-37945.jpg" alt="لباس بچگانه">
-        <h3>لباس بچگانه شاد</h3>
-        <p>۲۰٪ تخفیف</p>
-        <button class="add-to-cart">افزودن به سبد خرید</button>
-      </div>
-
-      <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/stylish-ring-display-jewelry-store_144627-37960.jpg" alt="انگشتر مدرن">
-        <h3>انگشتر مدرن</h3>
-        <p>۱۵٪ تخفیف</p>
+        <img src="https://rozalinstore.com/wp-content/uploads/2023/09/manto-red.jpg" alt="مانتو قرمز ایرانی">
+        <h3>مانتو
