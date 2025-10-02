@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>بوتیک قرمز</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Vazirmatn', sans-serif;
@@ -15,10 +15,9 @@
       display: flex;
     }
 
-    /* منوی ثابت سمت راست */
     nav.sidebar {
-      width: 220px;
-      background: #c40000;
+      width: 240px;
+      background: linear-gradient(to bottom, #c40000, #a00000);
       height: 100vh;
       position: fixed;
       top: 0;
@@ -27,77 +26,126 @@
       box-shadow: -2px 0 8px rgba(0,0,0,0.1);
       z-index: 1000;
     }
+
     nav.sidebar ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
+
     nav.sidebar ul li {
       position: relative;
     }
+
     nav.sidebar ul li a {
       display: block;
-      padding: 12px 20px;
+      padding: 14px 20px;
       color: white;
       text-decoration: none;
       font-weight: bold;
       transition: background 0.3s;
     }
+
     nav.sidebar ul li a:hover {
-      background: #a00000;
+      background: #880000;
     }
+
     .submenu {
       display: none;
       background: #a00000;
+      animation: fadeIn 0.3s ease-in-out;
     }
+
     nav.sidebar ul li:hover .submenu {
       display: block;
     }
+
     .submenu li a {
       padding: 10px 30px;
       font-size: 15px;
+      color: #fff;
     }
 
-    /* محتوای اصلی */
+    .submenu li a:hover {
+      background-color: #880000;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
     .main-content {
-      margin-right: 220px;
-      width: calc(100% - 220px);
+      margin-right: 240px;
+      width: calc(100% - 240px);
     }
 
     header {
-      background: #c40000;
+      background: linear-gradient(to left, #c40000, #a00000);
       color: white;
-      padding: 60px 20px 30px;
+      padding: 80px 20px 40px;
       text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    header p {
+      font-size: 18px;
+      margin: 0;
+      opacity: 0.9;
     }
 
     .categories {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
-      padding: 30px;
+      gap: 25px;
+      padding: 40px 20px;
     }
+
     .category {
       width: 200px;
+      height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       text-align: center;
       text-decoration: none;
       color: inherit;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
-      background: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: #fff;
+      overflow: hidden;
     }
+
     .category:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
-    .category img {
+
+    .image-box {
       width: 100%;
-      border-radius: 10px 10px 0 0;
+      height: 180px;
+      overflow: hidden;
     }
+
+    .image-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px 12px 0 0;
+    }
+
     .category h3 {
       margin: 10px 0;
       color: #c40000;
+      font-size: 17px;
     }
 
     footer {
@@ -105,6 +153,7 @@
       color: white;
       text-align: center;
       padding: 20px;
+      font-size: 14px;
     }
 
     @media (max-width: 768px) {
@@ -113,16 +162,22 @@
         width: 100%;
         height: auto;
       }
+
       .main-content {
         margin-right: 0;
         width: 100%;
+      }
+
+      .category {
+        width: 100%;
+        max-width: 300px;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- منوی ثابت سمت راست -->
+<!-- منوی سمت راست -->
 <nav class="sidebar">
   <ul>
     <li><a href="index.html">خانه</a></li>
@@ -166,6 +221,7 @@
         <li><a href="products/products-accessories.html#glasses">عینک</a></li>
       </ul>
     </li>
+    <li><a href="cart.html">سبد خرید 🛒</a></li>
     <li><a href="#contact">تماس با ما</a></li>
     <li><a href="#about">درباره ما</a></li>
   </ul>
@@ -174,36 +230,20 @@
 <!-- محتوای اصلی -->
 <div class="main-content">
   <header>
-    <h1>بوتیک علی</h1>
+    <h1>بوتیک قرمز</h1>
     <p>انتخاب دسته‌بندی مورد نظر</p>
   </header>
 
   <div class="categories">
-  <a href="products/products-women.html" class="category">
-    <div class="image-box">
-      <img src="https://img.freepik.com/free-photo/woman-red-dress_144627-37927.jpg" alt="زنانه">
-    </div>
-    <h3>زنانه</h3>
-  </a>
-  <a href="products/products-men.html" class="category">
-    <div class="image-box">
-      <img src="https://img.freepik.com/free-photo/man-fashion-outfit_144627-37935.jpg" alt="مردانه">
-    </div>
-    <h3>مردانه</h3>
-  </a>
-  <a href="products/products-kids.html" class="category">
-    <div class="image-box">
-      <img src="https://img.freepik.com/free-photo/adorable-kids-fashion_144627-37945.jpg" alt="بچگانه">
-    </div>
-    <h3>بچگانه</h3>
-  </a>
-  <a href="products/products-accessories.html" class="category">
-    <div class="image-box">
-      <img src="https://rozalinstore.com/wp-content/uploads/2023/07/گردنبند-زنانه-ژوپینگ-قلب.jpg" alt="اکسسوری">
-    </div>
-    <h3>اکسسوری</h3>
-  </a>
-</div>
-<a href="cart.html">سبد خرید</a>
-<li><a href="cart.html">سبد خرید 🛒</a></li>
-
+    <a href="products/products-women.html" class="category">
+      <div class="image-box">
+        <img src="https://img.freepik.com/free-photo/woman-red-dress_144627-37927.jpg" alt="زنانه">
+      </div>
+      <h3>زنانه</h3>
+    </a>
+    <a href="products/products-men.html" class="category">
+      <div class="image-box">
+        <img src="https://img.freepik.com/free-photo/man-fashion-outfit_144627-37935.jpg" alt="مردانه">
+      </div>
+      <h3>مردانه</h3>
+    </
