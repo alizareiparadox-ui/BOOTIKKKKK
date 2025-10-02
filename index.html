@@ -16,7 +16,7 @@
     }
 
     nav.sidebar {
-      width: 240px;
+      width: 220px;
       background: linear-gradient(to bottom, #c40000, #a00000);
       height: 100vh;
       position: fixed;
@@ -39,10 +39,11 @@
 
     nav.sidebar ul li a {
       display: block;
-      padding: 14px 20px;
+      padding: 12px 18px;
       color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 15px;
       transition: background 0.3s;
     }
 
@@ -53,7 +54,6 @@
     .submenu {
       display: none;
       background: #a00000;
-      animation: fadeIn 0.3s ease-in-out;
     }
 
     nav.sidebar ul li:hover .submenu {
@@ -62,7 +62,7 @@
 
     .submenu li a {
       padding: 10px 30px;
-      font-size: 15px;
+      font-size: 14px;
       color: #fff;
     }
 
@@ -70,32 +70,37 @@
       background-color: #880000;
     }
 
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
+    .main-content {
+      margin-right: 220px;
+      width: calc(100% - 220px);
     }
 
-    .main-content {
-      margin-right: 240px;
-      width: calc(100% - 240px);
+    .top-prayer {
+      background: #f8f8f8;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #a00000;
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
     }
 
     header {
       background: linear-gradient(to left, #c40000, #a00000);
       color: white;
-      padding: 80px 20px 40px;
+      padding: 50px 20px 30px;
       text-align: center;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     header h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
+      font-size: 32px;
+      margin-bottom: 5px;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
     }
 
     header p {
-      font-size: 18px;
+      font-size: 16px;
       margin: 0;
       opacity: 0.9;
     }
@@ -278,9 +283,3 @@
 </nav>
 
 <div class="main-content">
-  <header>
-    <h1>بوتیک قرمز</h1>
-    <p>محصولات ویژه با تخفیف‌های جذاب</p>
-  </header>
-
-  <div class="
