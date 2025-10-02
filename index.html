@@ -12,72 +12,6 @@
       background: #fff;
       color: #333;
       direction: rtl;
-      display: flex;
-    }
-
-    nav.sidebar {
-      width: 240px;
-      background: linear-gradient(to bottom, #c40000, #a00000);
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      right: 0;
-      padding-top: 40px;
-      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-
-    nav.sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav.sidebar ul li {
-      position: relative;
-    }
-
-    nav.sidebar ul li a {
-      display: block;
-      padding: 14px 20px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s;
-    }
-
-    nav.sidebar ul li a:hover {
-      background: #880000;
-    }
-
-    .submenu {
-      display: none;
-      background: #a00000;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    nav.sidebar ul li:hover .submenu {
-      display: block;
-    }
-
-    .submenu li a {
-      padding: 10px 30px;
-      font-size: 15px;
-      color: #fff;
-    }
-
-    .submenu li a:hover {
-      background-color: #880000;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    .main-content {
-      margin-right: 240px;
-      width: calc(100% - 240px);
     }
 
     header {
@@ -100,52 +34,69 @@
       opacity: 0.9;
     }
 
-    .categories {
+    .products-showcase {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .products-showcase h2 {
+      font-size: 22px;
+      color: #c40000;
+      margin-bottom: 30px;
+    }
+
+    .product-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 25px;
-      padding: 40px 20px;
     }
 
-    .category {
-      width: 200px;
-      height: 260px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      text-align: center;
-      text-decoration: none;
-      color: inherit;
+    .product-card {
+      width: 220px;
+      background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      background: #fff;
       overflow: hidden;
+      transition: transform 0.3s;
     }
 
-    .category:hover {
+    .product-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
 
-    .image-box {
+    .product-card img {
       width: 100%;
       height: 180px;
-      overflow: hidden;
-    }
-
-    .image-box img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
-      border-radius: 12px 12px 0 0;
     }
 
-    .category h3 {
-      margin: 10px 0;
+    .product-card h3 {
+      margin: 10px 0 5px;
+      font-size: 16px;
       color: #c40000;
-      font-size: 17px;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    .add-to-cart {
+      background-color: #c40000;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 12px;
+    }
+
+    .add-to-cart:hover {
+      background-color: #a00000;
     }
 
     footer {
@@ -154,21 +105,11 @@
       text-align: center;
       padding: 20px;
       font-size: 14px;
+      margin-top: 40px;
     }
 
     @media (max-width: 768px) {
-      nav.sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-      }
-
-      .main-content {
-        margin-right: 0;
-        width: 100%;
-      }
-
-      .category {
+      .product-card {
         width: 100%;
         max-width: 300px;
       }
@@ -177,91 +118,53 @@
 </head>
 <body>
 
-<!-- منوی سمت راست -->
-<nav class="sidebar">
-  <ul>
-    <li><a href="index.html">خانه</a></li>
-    <li>
-      <a href="#">مردانه ▾</a>
-      <ul class="submenu">
-        <li><a href="products/products-men.html#suits">کت و شلوار</a></li>
-        <li><a href="products/products-men.html#shirts">پیراهن</a></li>
-        <li><a href="products/products-men.html#pants">شلوار</a></li>
-        <li><a href="products/products-men.html#shoes">کفش</a></li>
-        <li><a href="products/products-men.html#watches">ساعت</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">زنانه ▾</a>
-      <ul class="submenu">
-        <li><a href="products/products-women.html#mantos">مانتو</a></li>
-        <li><a href="products/products-women.html#dresses">لباس مجلسی</a></li>
-        <li><a href="products/products-women.html#skirts">دامن</a></li>
-        <li><a href="products/products-women.html#bags">کیف</a></li>
-        <li><a href="products/products-women.html#scarves">روسری</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">بچگانه ▾</a>
-      <ul class="submenu">
-        <li><a href="products/products-kids.html#girls">لباس دخترانه</a></li>
-        <li><a href="products/products-kids.html#boys">لباس پسرانه</a></li>
-        <li><a href="products/products-kids.html#shoes">کفش</a></li>
-        <li><a href="products/products-kids.html#hats">کلاه</a></li>
-        <li><a href="products/products-kids.html#bags">کوله‌پشتی</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">اکسسوری ▾</a>
-      <ul class="submenu">
-        <li><a href="products/products-accessories.html#necklaces">گردنبند</a></li>
-        <li><a href="products/products-accessories.html#earrings">گوشواره</a></li>
-        <li><a href="products/products-accessories.html#rings">انگشتر</a></li>
-        <li><a href="products/products-accessories.html#belts">کمربند</a></li>
-        <li><a href="products/products-accessories.html#glasses">عینک</a></li>
-      </ul>
-    </li>
-    <li><a href="cart.html">سبد خرید 🛒</a></li>
-    <li><a href="#contact">تماس با ما</a></li>
-    <li><a href="#about">درباره ما</a></li>
-  </ul>
-</nav>
-
-<!-- محتوای اصلی -->
-<div class="main-content">
   <header>
     <h1>بوتیک قرمز</h1>
-    <p>انتخاب دسته‌بندی مورد نظر</p>
+    <p>محصولات ویژه با تخفیف‌های جذاب</p>
   </header>
 
-  <div class="categories">
-    <a href="products/products-women.html" class="category">
-      <div class="image-box">
-        <img src="https://img.freepik.com/free-photo/woman-red-dress_144627-37927.jpg" alt="زنانه">
-     <div class="products-showcase">
-  <h2>محصولات دارای تخفیف</h2>
-  <div class="product-grid">
-    <div class="product-card">
-      <img src="https://img.freepik.com/free-photo/woman-red-dress_144627-37927.jpg" alt="لباس زنانه">
-      <h3>لباس زنانه</h3>
-      <p>۲۵٪ تخفیف</p>
-    </div>
-    <div class="product-card">
-      <img src="https://rozalinstore.com/wp-content/uploads/2023/07/گردنبند-زنانه-ژوپینگ-قلب.jpg" alt="گردنبند ژوپینگ">
-      <h3>گردنبند ژوپینگ</h3>
-      <p>۳۰٪ تخفیف</p>
-    </div>
-    <div class="product-card">
-      <img src="https://img.freepik.com/free-photo/adorable-kids-fashion_144627-37945.jpg" alt="لباس بچگانه">
-      <h3>لباس بچگانه</h3>
-      <p>۲۰٪ تخفیف</p>
-    </div>
-    <div class="product-card">
-      <img src="https://img.freepik.com/free-photo/golden-ring-display_144627-37960.jpg" alt="انگشتر طلایی">
-      <h3>انگشتر طلایی</h3>
-      <p>۱۵٪ تخفیف</p>
+  <div class="products-showcase">
+    <h2>محصولات دارای تخفیف</h2>
+    <div class="product-grid">
+
+      <!-- محصول ۱ -->
+      <div class="product-card">
+        <img src="https://img.freepik.com/free-photo/elegant-red-dress-hanger_144627-37927.jpg" alt="لباس مجلسی قرمز">
+        <h3>لباس مجلسی قرمز</h3>
+        <p>۲۵٪ تخفیف</p>
+        <button class="add-to-cart">افزودن به سبد خرید</button>
+      </div>
+
+      <!-- محصول ۲ -->
+      <div class="product-card">
+        <img src="https://img.freepik.com/free-photo/golden-necklace-display_144627-37960.jpg" alt="گردنبند طلایی">
+        <h3>گردنبند طلایی</h3>
+        <p>۳۰٪ تخفیف</p>
+        <button class="add-to-cart">افزودن به سبد خرید</button>
+      </div>
+
+      <!-- محصول ۳ -->
+      <div class="product-card">
+        <img src="https://img.freepik.com/free-photo/kids-fashion-outfit_144627-37945.jpg" alt="لباس بچگانه">
+        <h3>لباس بچگانه شاد</h3>
+        <p>۲۰٪ تخفیف</p>
+        <button class="add-to-cart">افزودن به سبد خرید</button>
+      </div>
+
+      <!-- محصول ۴ -->
+      <div class="product-card">
+        <img src="https://img.freepik.com/free-photo/stylish-ring-display_144627-37960.jpg" alt="انگشتر مدرن">
+        <h3>انگشتر مدرن</h3>
+        <p>۱۵٪ تخفیف</p>
+        <button class="add-to-cart">افزودن به سبد خرید</button>
+      </div>
+
     </div>
   </div>
-</div>
 
+  <footer>
+    © 2025 بوتیک قرمز | طراحی توسط علی
+  </footer>
 
+</body>
+</html>
