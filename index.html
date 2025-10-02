@@ -12,6 +12,43 @@
       background: #fff;
       color: #333;
       direction: rtl;
+      display: flex;
+    }
+
+    nav.sidebar {
+      width: 240px;
+      background: linear-gradient(to bottom, #c40000, #a00000);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding-top: 40px;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    nav.sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav.sidebar ul li a {
+      display: block;
+      padding: 14px 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    nav.sidebar ul li a:hover {
+      background: #880000;
+    }
+
+    .main-content {
+      margin-right: 240px;
+      width: calc(100% - 240px);
     }
 
     header {
@@ -109,6 +146,17 @@
     }
 
     @media (max-width: 768px) {
+      nav.sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      .main-content {
+        margin-right: 0;
+        width: 100%;
+      }
+
       .product-card {
         width: 100%;
         max-width: 300px;
@@ -118,6 +166,16 @@
 </head>
 <body>
 
+<nav class="sidebar">
+  <ul>
+    <li><a href="index.html">خانه</a></li>
+    <li><a href="cart.html">سبد خرید 🛒</a></li>
+    <li><a href="#contact">تماس با ما</a></li>
+    <li><a href="#about">درباره ما</a></li>
+  </ul>
+</nav>
+
+<div class="main-content">
   <header>
     <h1>بوتیک قرمز</h1>
     <p>محصولات ویژه با تخفیف‌های جذاب</p>
@@ -127,44 +185,28 @@
     <h2>محصولات دارای تخفیف</h2>
     <div class="product-grid">
 
-      <!-- محصول ۱ -->
       <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/elegant-red-dress-hanger_144627-37927.jpg" alt="لباس مجلسی قرمز">
+        <img src="https://img.freepik.com/free-photo/red-dress-hanger-modern-wall_144627-37927.jpg" alt="لباس مجلسی قرمز">
         <h3>لباس مجلسی قرمز</h3>
         <p>۲۵٪ تخفیف</p>
         <button class="add-to-cart">افزودن به سبد خرید</button>
       </div>
 
-      <!-- محصول ۲ -->
       <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/golden-necklace-display_144627-37960.jpg" alt="گردنبند طلایی">
+        <img src="https://img.freepik.com/free-photo/golden-necklace-display-jewelry_144627-37960.jpg" alt="گردنبند طلایی">
         <h3>گردنبند طلایی</h3>
         <p>۳۰٪ تخفیف</p>
         <button class="add-to-cart">افزودن به سبد خرید</button>
       </div>
 
-      <!-- محصول ۳ -->
       <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/kids-fashion-outfit_144627-37945.jpg" alt="لباس بچگانه">
+        <img src="https://img.freepik.com/free-photo/kids-clothing-set-red-background_144627-37945.jpg" alt="لباس بچگانه">
         <h3>لباس بچگانه شاد</h3>
         <p>۲۰٪ تخفیف</p>
         <button class="add-to-cart">افزودن به سبد خرید</button>
       </div>
 
-      <!-- محصول ۴ -->
       <div class="product-card">
-        <img src="https://img.freepik.com/free-photo/stylish-ring-display_144627-37960.jpg" alt="انگشتر مدرن">
+        <img src="https://img.freepik.com/free-photo/stylish-ring-display-jewelry-store_144627-37960.jpg" alt="انگشتر مدرن">
         <h3>انگشتر مدرن</h3>
         <p>۱۵٪ تخفیف</p>
-        <button class="add-to-cart">افزودن به سبد خرید</button>
-      </div>
-
-    </div>
-  </div>
-
-  <footer>
-    © 2025 بوتیک قرمز | طراحی توسط علی
-  </footer>
-
-</body>
-</html>
