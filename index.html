@@ -1,285 +1,738 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>بوتیک قرمز</title>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Vazirmatn', sans-serif;
-      margin: 0;
-      background: #fff;
-      color: #333;
-      direction: rtl;
-      display: flex;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد برنامه روزانه من</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    nav.sidebar {
-      width: 220px;
-      background: linear-gradient(to bottom, #c40000, #a00000);
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      right: 0;
-      padding-top: 40px;
-      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --danger: #e63946;
+            --bg-color: #f8f9fa;
+            --card-color: #ffffff;
+            --text-color: #2b2d42;
+            --border-color: #e9ecef;
+        }
 
-    nav.sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
 
-    nav.sidebar ul li {
-      position: relative;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-    nav.sidebar ul li a {
-      display: block;
-      padding: 12px 18px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 15px;
-      transition: background 0.3s;
-    }
+        /* هدر */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
 
-    nav.sidebar ul li a:hover {
-      background: #880000;
-    }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .submenu {
-      display: none;
-      background: #a00000;
-    }
+        .date-display {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
 
-    nav.sidebar ul li:hover .submenu {
-      display: block;
-    }
+        .overall-progress {
+            margin-top: 15px;
+        }
 
-    .submenu li a {
-      padding: 10px 30px;
-      font-size: 14px;
-      color: #fff;
-    }
+        /* گرید اصلی */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
 
-    .submenu li a:hover {
-      background-color: #880000;
-    }
+        /* کارت‌ها */
+        .card {
+            background: rgba(255,255,255,0.95);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
-    .main-content {
-      margin-right: 220px;
-      width: calc(100% - 220px);
-    }
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
 
-    .top-prayer {
-      background: #f8f8f8;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      color: #a00000;
-      font-weight: bold;
-      border-bottom: 1px solid #eee;
-    }
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
 
-    header {
-      background: linear-gradient(to left, #c40000, #a00000);
-      color: white;
-      padding: 50px 20px 30px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
+        .card-icon {
+            font-size: 1.5rem;
+        }
 
-    header h1 {
-      font-size: 32px;
-      margin-bottom: 5px;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    }
+        /* آیتم‌ها */
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
 
-    header p {
-      font-size: 16px;
-      margin: 0;
-      opacity: 0.9;
-    }
+        .task-item:hover {
+            background: rgba(0,0,0,0.02);
+            border-radius: 8px;
+            padding: 12px 10px;
+        }
 
-    .products-showcase {
-      padding: 40px 20px;
-      text-align: center;
-    }
+        .task-item:last-child {
+            border-bottom: none;
+        }
 
-    .products-showcase h2 {
-      font-size: 22px;
-      color: #c40000;
-      margin-bottom: 30px;
-    }
+        .task-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
 
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-    }
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--success);
+        }
 
-    .product-card {
-      width: 220px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      overflow: hidden;
-      transition: transform 0.3s;
-    }
+        .task-label {
+            font-size: 1rem;
+            flex: 1;
+        }
 
-    .product-card:hover {
-      transform: translateY(-6px);
-    }
+        /* کانتر */
+        .counter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .product-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
+        .counter-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
 
-    .product-card h3 {
-      margin: 10px 0 5px;
-      font-size: 16px;
-      color: #c40000;
-    }
+        .counter-btn:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
 
-    .product-card p {
-      font-size: 14px;
-      color: #555;
-      margin-bottom: 10px;
-    }
+        .counter-value {
+            min-width: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
 
-    .add-to-cart {
-      background-color: #c40000;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.3s;
-      margin-bottom: 12px;
-    }
+        /* نوار پیشرفت */
+        .progress-container {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
 
-    .add-to-cart:hover {
-      background-color: #a00000;
-    }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
 
-    .comments-section {
-      padding: 40px 20px;
-      background: #f9f9f9;
-      text-align: right;
-    }
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-    .comments-section h2 {
-      font-size: 22px;
-      color: #c40000;
-      margin-bottom: 25px;
-    }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success), var(--primary));
+            transition: width 0.5s ease;
+            width: 0%;
+        }
 
-    .comment {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 10px;
-      padding: 15px 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
+        /* بخش ورزش */
+        .workout-exercise {
+            background: rgba(67, 97, 238, 0.05);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 8px 0;
+        }
 
-    .comment h4 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      color: #a00000;
-    }
+        .exercise-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
-    .comment p {
-      margin: 0 0 6px;
-      font-size: 14px;
-      color: #444;
-    }
+        .exercise-sets {
+            font-size: 0.85rem;
+            color: #666;
+        }
 
-    .comment span {
-      font-size: 12px;
-      color: #888;
-    }
+        /* دکمه‌ها */
+        .reset-btn {
+            background: linear-gradient(135deg, var(--warning), var(--danger));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
 
-    footer {
-      background: #c40000;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      margin-top: 40px;
-    }
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+        }
 
-    @media (max-width: 768px) {
-      nav.sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-      }
-
-      .main-content {
-        margin-right: 0;
-        width: 100%;
-      }
-
-      .product-card {
-        width: 100%;
-        max-width: 300px;
-      }
-    }
-  </style>
+        /* رسپانسیو */
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .counter {
+                align-self: flex-end;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>🚀 داشبورد برنامه روزانه من</h1>
+            <div class="date-display" id="currentDate">امروز: در حال بارگذاری...</div>
+            <div class="overall-progress">
+                <div class="progress-info">
+                    <span>پیشرفت کلی امروز:</span>
+                    <span id="overallProgressText">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="overallProgress"></div>
+                </div>
+            </div>
+        </header>
 
-<nav class="sidebar">
-  <ul>
-    <li><a href="cart.html">سبد خرید 🛒</a></li>
-    <li><a href="#">مردانه ▾</a>
-      <ul class="submenu">
-        <li><a href="#">کت و شلوار</a></li>
-        <li><a href="#">پیراهن</a></li>
-        <li><a href="#">شلوار</a></li>
-        <li><a href="#">کفش</a></li>
-        <li><a href="#">ساعت</a></li>
-      </ul>
-    </li>
-    <li><a href="#">زنانه ▾</a>
-      <ul class="submenu">
-        <li><a href="#">مانتو</a></li>
-        <li><a href="#">لباس مجلسی</a></li>
-        <li><a href="#">دامن</a></li>
-        <li><a href="#">کیف</a></li>
-        <li><a href="#">روسری</a></li>
-      </ul>
-    </li>
-    <li><a href="#">بچگانه ▾</a>
-      <ul class="submenu">
-        <li><a href="#">لباس دخترانه</a></li>
-        <li><a href="#">لباس پسرانه</a></li>
-        <li><a href="#">کفش</a></li>
-        <li><a href="#">کلاه</a></li>
-        <li><a href="#">کوله‌پشتی</a></li>
-      </ul>
-    </li>
-    <li><a href="#">اکسسوری ▾</a>
-      <ul class="submenu">
-        <li><a href="#">گردنبند</a></li>
-        <li><a href="#">گوشواره</a></li>
-        <li><a href="#">انگشتر</a></li>
-        <li><a href="#">کمربند</a></li>
-        <li><a href="#">عینک</a></li>
-      </ul>
-    </li>
-    <li><a href="#contact">تماس با ما</a></li>
-    <li><a href="#about">درباره ما</a></li>
-  </ul>
-</nav>
+        <div class="main-grid">
+            <!-- بخش مطالعاتی -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📚 کنکور و فرهنگیان</h2>
+                    <span class="card-icon">🎯</span>
+                </div>
+                <div id="studyTasks">
+                    <!-- tasks populated by JS -->
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>پیشرفت بخش:</span>
+                        <span id="studyProgressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="studyProgress"></div>
+                    </div>
+                </div>
+            </div>
 
-<div class="main-content">
+            <!-- بخش اینستاگرام -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">📱 اینستاگرام</h2>
+                    <span class="card-icon">📈</span>
+                </div>
+                <div id="instagramTasks">
+                    <!-- tasks populated by JS -->
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>پیشرفت بخش:</span>
+                        <span id="instagramProgressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="instagramProgress"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش تغذیه -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">🍎 تغذیه</h2>
+                    <span class="card-icon">💪</span>
+                </div>
+                <div id="nutritionTasks">
+                    <!-- tasks populated by JS -->
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>پیشرفت بخش:</span>
+                        <span id="nutritionProgressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="nutritionProgress"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش ورزش -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">💪 ورزش</h2>
+                    <span class="card-icon">🔥</span>
+                </div>
+                <div id="workoutContent">
+                    <!-- workout content populated by JS -->
+                </div>
+                <div class="progress-container">
+                    <div class="progress-info">
+                        <span>پیشرفت بخش:</span>
+                        <span id="workoutProgressText">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="workoutProgress"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="reset-btn" onclick="resetDay()">
+            🔄 ریست برنامه امروز
+        </button>
+    </div>
+
+    <script>
+        // داده‌های کامل برنامه
+        const appData = {
+            study: [
+                { id: 'study1', label: 'یک درس نهایی', checked: false, type: 'checkbox' },
+                { id: 'study2', label: 'یک صفحه کندخوانی و تندخوانی', checked: false, type: 'checkbox' },
+                { id: 'study3', label: 'یک صفحه قرآن', checked: false, type: 'checkbox' },
+                { id: 'study4', label: '10 تست برای هر درس فیلم', checked: false, type: 'checkbox' },
+                { id: 'study5', label: 'دو عدد فیلم آموزشی', checked: false, type: 'checkbox' },
+                { id: 'study6', label: '5 صفحه کتاب فرهنگیان', checked: false, type: 'checkbox' },
+                { id: 'study7', label: 'تست بخش فرهنگیان', checked: false, type: 'checkbox' }
+            ],
+            instagram: [
+                { id: 'ig1', label: 'فالو پیج ممد (80)', value: 0, target: 80, type: 'counter' },
+                { id: 'ig2', label: 'فالو پیج سارا/ویدا (80)', value: 0, target: 80, type: 'counter' },
+                { id: 'ig3', label: 'فالو پیج مذهبی (80)', value: 0, target: 80, type: 'counter' },
+                { id: 'ig4', label: 'پست در 3 پیج سریع', checked: false, type: 'checkbox' }
+            ],
+            nutrition: [
+                { id: 'nut1', label: 'تغذیه باشگاه', checked: false, type: 'checkbox' },
+                { id: 'nut2', label: 'صبحانه کامل', checked: false, type: 'checkbox' },
+                { id: 'nut3', label: '2 میوه قبل صبحانه', checked: false, type: 'checkbox' },
+                { id: 'nut4', label: 'ناهار (2 بشقاب)', checked: false, type: 'checkbox' },
+                { id: 'nut5', label: 'عصرانه (باقی ناهار/تخم مرغ/سیب زمینی)', checked: false, type: 'checkbox' },
+                { id: 'nut6', label: 'شام کامل', checked: false, type: 'checkbox' },
+                { id: 'nut7', label: 'وعده قبل خواب (2 میوه/شیر)', checked: false, type: 'checkbox' }
+            ],
+            workout: {
+                days: {
+                    'شنبه': [
+                        { id: 'sat1', name: 'شنا عادی', sets: '100 تکرار', checked: false },
+                        { id: 'sat2', name: 'شنا بالا', sets: '100 تکرار', checked: false },
+                        { id: 'sat3', name: 'شنا پایین', sets: '100 تکرار', checked: false },
+                        { id: 'sat4', name: 'پرس سینه عادی', sets: '15 تکرار × 4 ست', checked: false },
+                        { id: 'sat5', name: 'کول', sets: '15 تکرار × 4 ست', checked: false },
+                        { id: 'sat6', name: 'پشت شانه', sets: '12 تکرار × 4 ست', checked: false }
+                    ],
+                    'یکشنبه': [
+                        { id: 'sun1', name: 'سرشانه عادی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun2', name: 'سرشانه وی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun3', name: 'سرشانه چکشی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun4', name: 'سرشانه از بغل', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun5', name: 'سرشانه از جلو', sets: '15 تکرار × 4 ست', checked: false },
+                        { id: 'sun6', name: 'جلو بازو عادی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun7', name: 'جلو بازو لاری', sets: '12 تکرار × 3 ست', checked: false },
+                        { id: 'sun8', name: 'جلو بازو ساعد چرخشی', sets: '10 تکرار × 4 ست', checked: false },
+                        { id: 'sun9', name: 'جلو بازو هالتر', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun10', name: 'جلو بازو چکشی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'sun11', name: 'ساعد', sets: '20 تکرار × 4 ست', checked: false }
+                    ],
+                    'دوشنبه': [
+                        { id: 'mon1', name: 'استراحت ورزشی 🏂🪂', sets: 'روز استراحت فعال', checked: false }
+                    ],
+                    'سه‌شنبه': [
+                        { id: 'tue1', name: 'اسکات', sets: '15 15 12 12 10 تکرار', checked: false },
+                        { id: 'tue2', name: 'جلو پا راه رفتن', sets: '15 15 12 12 10 تکرار', checked: false },
+                        { id: 'tue3', name: 'جلو پا روی مبل', sets: '12 12 10 10 تکرار', checked: false },
+                        { id: 'tue4', name: 'جلو پا تک پا', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'tue5', name: 'جلو پا اسکات داخل پا', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'tue6', name: 'فیله کمر', sets: '20 تکرار × 4 ست', checked: false },
+                        { id: 'tue7', name: 'پرس سینه', sets: '20 تکرار × 4 ست', checked: false }
+                    ],
+                    'چهارشنبه': [
+                        { id: 'wed1', name: 'زیر بغل دست جمع', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed2', name: 'زیر بغل دست باز', sets: '10 تکرار × 4 ست', checked: false },
+                        { id: 'wed3', name: 'زیر بغل اصلی دست باز', sets: '8 تکرار × 4 ست', checked: false },
+                        { id: 'wed4', name: 'زیر بغل اصلی دست جمع', sets: '6 تکرار × 4 ست', checked: false },
+                        { id: 'wed5', name: 'زیر بغل دمبل چکشی', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed6', name: 'زیر بغل دمبل دست بر عکس', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed7', name: 'پشت بازو خوابیده', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed8', name: 'پشت بازو ایستاده دمبل', sets: '10 تکرار × 4 ست', checked: false },
+                        { id: 'wed9', name: 'پشت بازو طناب', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed10', name: 'پشت بازو بالای سر', sets: '12 تکرار × 4 ست', checked: false },
+                        { id: 'wed11', name: 'پشت بازو رو پاسیون', sets: '12 تکرار × 4 ست', checked: false }
+                    ],
+                    'پنجشنبه': [
+                        { id: 'thu1', name: 'شنا پایین سینه دست عادی', sets: '20 تکرار × 4 ست', checked: false },
+                        { id: 'thu2', name: 'شنا پایین سینه سطح پایین تر', sets: '20 تکرار × 4 ست', checked: false },
+                        { id: 'thu3', name: 'شنا پایین سینه دست بر عکس', sets: '20 تکرار × 4 ست', checked: false },
+                        { id: 'thu4', name: 'دراز نشست', sets: '20 تکرار × 4 ست', checked: false },
+                        { id: 'thu5', name: 'شکم پهلو', sets: '18 تکرار × 4 ست', checked: false }
+                    ],
+                    'جمعه': [
+                        { id: 'fri1', name: 'تمرینات تنفسی', sets: 'روز استراحت و ریکاوری', checked: false }
+                    ]
+                }
+            }
+        };
+
+        // تاریخ فارسی
+        function getPersianDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return now.toLocaleDateString('fa-IR', options);
+        }
+
+        // روز هفته فارسی
+        function getPersianWeekday() {
+            const days = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
+            return days[new Date().getDay()];
+        }
+
+        // لود داده‌ها
+        function loadData() {
+            const saved = localStorage.getItem('completeDailyPlanner');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                const today = new Date().toDateString();
+                
+                if (parsed.date === today) {
+                    Object.keys(appData).forEach(key => {
+                        if (parsed[key]) {
+                            if (key === 'workout') {
+                                appData.workout = parsed.workout;
+                            } else {
+                                appData[key] = appData[key].map((item, index) => ({
+                                    ...item,
+                                    ...parsed[key][index]
+                                }));
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+        // ذخیره داده‌ها
+        function saveData() {
+            const dataToSave = {
+                date: new Date().toDateString(),
+                ...appData
+            };
+            localStorage.setItem('completeDailyPlanner', JSON.stringify(dataToSave));
+            updateAllProgress();
+        }
+
+        // رندر تمام بخش‌ها
+        function renderAllSections() {
+            renderStudySection();
+            renderInstagramSection();
+            renderNutritionSection();
+            renderWorkoutSection();
+        }
+
+        // رندر بخش مطالعاتی
+        function renderStudySection() {
+            const container = document.getElementById('studyTasks');
+            container.innerHTML = appData.study.map(task => `
+                <div class="task-item">
+                    <div class="task-info">
+                        <input type="checkbox" class="task-checkbox" id="${task.id}" 
+                               ${task.checked ? 'checked' : ''} 
+                               onchange="toggleCheckbox('study', '${task.id}')">
+                        <label class="task-label" for="${task.id}">${task.label}</label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // رندر بخش اینستاگرام
+        function renderInstagramSection() {
+            const container = document.getElementById('instagramTasks');
+            container.innerHTML = appData.instagram.map(task => {
+                if (task.type === 'counter') {
+                    return `
+                        <div class="task-item">
+                            <div class="task-info">
+                                <label class="task-label">${task.label}</label>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', -5)">-5</button>
+                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', -1)">-</button>
+                                <span class="counter-value">${task.value}</span>
+                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', 1)">+</button>
+                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', 5)">+5</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="task-item">
+                            <div class="task-info">
+                                <input type="checkbox" class="task-checkbox" id="${task.id}" 
+                                       ${task.checked ? 'checked' : ''} 
+                                       onchange="toggleCheckbox('instagram', '${task.id}')">
+                                <label class="task-label" for="${task.id}">${task.label}</label>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        // رندر بخش تغذیه
+        function renderNutritionSection() {
+            const container = document.getElementById('nutritionTasks');
+            container.innerHTML = appData.nutrition.map(task => `
+                <div class="task-item">
+                    <div class="task-info">
+                        <input type="checkbox" class="task-checkbox" id="${task.id}" 
+                               ${task.checked ? 'checked' : ''} 
+                               onchange="toggleCheckbox('nutrition', '${task.id}')">
+                        <label class="task-label" for="${task.id}">${task.label}</label>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // رندر بخش ورزش
+        function renderWorkoutSection() {
+            const today = getPersianWeekday();
+            const todayWorkout = appData.workout.days[today] || [];
+            const container = document.getElementById('workoutContent');
+            
+            container.innerHTML = `
+                <div style="margin-bottom: 15px; padding: 10px; background: rgba(67, 97, 238, 0.1); border-radius: 10px;">
+                    <strong>امروز: ${today}</strong>
+                </div>
+                ${todayWorkout.map(exercise => `
+                    <div class="workout-exercise">
+                        <div class="task-item">
+                            <div class="task-info">
+                                <input type="checkbox" class="task-checkbox" id="${exercise.id}" 
+                                       ${exercise.checked ? 'checked' : ''} 
+                                       onchange="toggleWorkoutExercise('${today}', '${exercise.id}')">
+                                <div style="flex: 1;">
+                                    <div class="exercise-name">${exercise.name}</div>
+                                    <div class="exercise-sets">${exercise.sets}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        // توابع تعاملی
+        function toggleCheckbox(section, taskId) {
+            const task = appData[section].find(t => t.id === taskId);
+            if (task) {
+                task.checked = !task.checked;
+                saveData();
+                renderAllSections();
+            }
+        }
+
+        function toggleWorkoutExercise(day, exerciseId) {
+            const exercise = appData.workout.days[day].find(e => e.id === exerciseId);
+            if (exercise) {
+                exercise.checked = !exercise.checked;
+                saveData();
+                renderWorkoutSection();
+                updateAllProgress();
+            }
+        }
+
+        function updateCounter(section, taskId, change) {
+            const task = appData[section].find(t => t.id === taskId);
+            if (task) {
+                task.value = Math.max(0, task.value + change);
+                saveData();
+                renderAllSections();
+            }
+        }
+
+        // آپدیت پیشرفت
+        function updateAllProgress() {
+            updateSectionProgress('study');
+            updateSectionProgress('instagram');
+            updateSectionProgress('nutrition');
+            updateSectionProgress('workout');
+            updateOverallProgress();
+        }
+
+        function updateSectionProgress(section) {
+            let progress = 0;
+            
+            if (section === 'workout') {
+                const today = getPersianWeekday();
+                const todayWorkout = appData.workout.days[today] || [];
+                const total = todayWorkout.length;
+                const completed = todayWorkout.filter(ex => ex.checked).length;
+                progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+            } else {
+                const tasks = appData[section];
+                const total = tasks.length;
+                const completed = tasks.filter(task => {
+                    if (task.type === 'counter') {
+                        return task.value >= task.target;
+                    }
+                    return task.checked;
+                }).length;
+                
+                progress = total > 0 ? Math.round((completed / total) * 100) : 0;
+            }
+            
+            const progressBar = document.getElementById(`${section}Progress`);
+            const progressText = document.getElementById(`${section}ProgressText`);
+            
+            if (progressBar && progressText) {
+                progressBar.style.width = `${progress}%`;
+                progressText.textContent = `${progress}%`;
+            }
+        }
+
+        function updateOverallProgress() {
+            const sections = ['study', 'instagram', 'nutrition', 'workout'];
+            let totalProgress = 0;
+            
+            sections.forEach(section => {
+                const progressText = document.getElementById(`${section}ProgressText`);
+                if (progressText) {
+                    const progress = parseInt(progressText.textContent) || 0;
+                    totalProgress += progress;
+                }
+            });
+            
+            const overallProgress = Math.round(totalProgress / sections.length);
+            
+            const overallBar = document.getElementById('overallProgress');
+            const overallText = document.getElementById('overallProgressText');
+            
+            if (overallBar && overallText) {
+                overallBar.style.width = `${overallProgress}%`;
+                overallText.textContent = `${overallProgress}%`;
+            }
+        }
+
+        // ریست روزانه
+        function resetDay() {
+            if (confirm('آیا از ریست کردن برنامه امروز مطمئنید؟')) {
+                // ریست بخش‌های مختلف
+                ['study', 'instagram', 'nutrition'].forEach(section => {
+                    appData[section].forEach(task => {
+                        task.checked = false;
+                        if (task.value) task.value = 0;
+                    });
+                });
+                
+                // ریست ورزش امروز
+                const today = getPersianWeekday();
+                if (appData.workout.days[today]) {
+                    appData.workout.days[today].forEach(exercise => {
+                        exercise.checked = false;
+                    });
+                }
+                
+                saveData();
+                renderAllSections();
+                alert('برنامه امروز ریست شد! 💪');
+            }
+        }
+
+        // مقداردهی اولیه
+        function init() {
+            document.getElementById('currentDate').textContent = `امروز: ${getPersianDate()}`;
+            loadData();
+            renderAllSections();
+            updateAllProgress();
+        }
+
+        // اجرا هنگام لود صفحه
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
