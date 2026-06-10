@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gang Focus | پنل مدیریت کارها</title>
+    <title>Gang Focus | پنل گنگ مدیریت کارها</title>
     <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- ذرات کانفتی -->
+    <canvas id="confettiCanvas"></canvas>
+
     <main class="app">
         <!-- هدر -->
         <div class="app-header">
             <h1 class="app-title">⚡ GANG FOCUS</h1>
             <p class="app-subtitle">تیک بزن ، جلو برو ، بدرخش</p>
+            <div class="date-row">
+                <span class="shamsi-date" id="shamsiDate">📅 </span>
+                <span class="live-clock" id="liveClock">🕐 </span>
+            </div>
+        </div>
+
+        <!-- استریک و امتیاز -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-value" id="streakCount">0</span>
+                <span class="stat-label">روز پشت سر هم</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-value" id="totalScore">0</span>
+                <span class="stat-label">امتیاز کل</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⏱️</span>
+                <span class="stat-value" id="todayStudyTime">0 دقیقه</span>
+                <span class="stat-label">مطالعه امروز</span>
+            </div>
         </div>
 
         <!-- نقل قول انگیزشی -->
@@ -30,6 +56,12 @@
                 <button class="btn btn-outline" id="resetBtn">↺ بازنشانی</button>
                 <button class="btn btn-outline" id="switchModeBtn">🔄 استراحت</button>
             </div>
+            <div class="auto-pomodoro">
+                <label class="toggle-label">
+                    <input type="checkbox" id="autoPomodoroCheck">
+                    <span>چرخه خودکار (۲۵ دقیقه مطالعه + ۵ دقیقه استراحت)</span>
+                </label>
+            </div>
         </div>
 
         <!-- نمودار دایره‌ای -->
@@ -45,10 +77,10 @@
         </div>
 
         <div class="add-task-row">
-            <input 
-                type="text" 
-                class="task-input" 
-                id="taskInputField" 
+            <input
+                type="text"
+                class="task-input"
+                id="taskInputField"
                 placeholder="اسم درس یا وظیفه..."
                 autocomplete="off"
             >
