@@ -12,6 +12,7 @@
     --accent-glow: rgba(99, 102, 241, 0.4);
     --danger: #f87171;
     --success: #34d399;
+    --warning: #fbbf24;
     --radius-xl: 2.25rem;
     --radius-lg: 1.75rem;
     --radius-md: 1.25rem;
@@ -28,7 +29,7 @@
 body {
     font-family: 'Vazirmatn', system-ui, sans-serif;
     background: var(--bg-deep);
-    background-image: 
+    background-image:
         radial-gradient(ellipse at 25% 20%, #0f0f2a 0%, transparent 55%),
         radial-gradient(ellipse at 75% 80%, #1a1025 0%, transparent 55%),
         linear-gradient(180deg, #03050a 0%, #0a0a1a 100%);
@@ -39,6 +40,19 @@ body {
     padding: 1.8rem;
     color: var(--text-primary);
     -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* کانواس کانفتی */
+#confettiCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
 }
 
 /* اسکرول‌بار شیشه‌ای */
@@ -62,6 +76,8 @@ body {
     box-shadow: var(--shadow-card);
     transition: var(--transition-smooth);
     animation: floatIn 0.8s ease-out;
+    position: relative;
+    z-index: 1;
 }
 
 @keyframes floatIn {
@@ -74,7 +90,7 @@ body {
    ===================== */
 .app-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.2rem;
 }
 
 .app-title {
@@ -94,6 +110,69 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     letter-spacing: 0.3px;
+}
+
+.date-row {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.shamsi-date, .live-clock {
+    background: rgba(99, 102, 241, 0.1);
+    padding: 0.3rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(129, 140, 248, 0.2);
+}
+
+/* =====================
+   STATS ROW
+   ===================== */
+.stats-row {
+    display: flex;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 90px;
+    background: rgba(20, 20, 40, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-md);
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.stat-card:hover {
+    border-color: var(--accent-indigo);
+    transform: translateY(-2px);
+}
+
+.stat-icon {
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 0.2rem;
+}
+
+.stat-value {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #e2e8f0;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    font-weight: 500;
 }
 
 /* =====================
@@ -172,6 +251,26 @@ body {
     flex-wrap: wrap;
     gap: 0.9rem;
     justify-content: center;
+}
+
+.auto-pomodoro {
+    margin-top: 1rem;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-label input[type="checkbox"] {
+    accent-color: var(--accent-indigo);
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 /* =====================
@@ -358,12 +457,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     animation: slideIn 0.3s ease;
 }
 
 @keyframes slideIn {
-    from { opacity: 0; transform: translateX(-10px); }
+    from { opacity: 0; transform: translateX(-15px); }
     to { opacity: 1; transform: translateX(0); }
 }
 
@@ -393,13 +492,23 @@ body {
     font-size: 1.05rem;
     font-weight: 500;
     color: #e2e8f0;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
 }
 
 .completed-task .task-text {
     text-decoration: line-through;
     color: #64748b;
     opacity: 0.65;
+}
+
+.completed-task {
+    animation: completePop 0.4s ease;
+}
+
+@keyframes completePop {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.03); border-color: #34d399; }
+    100% { transform: scale(1); }
 }
 
 .delete-task {
@@ -461,4 +570,13 @@ body {
         text-align: center;
         justify-content: center;
     }
-}
+
+    .stats-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .stat-card {
+        min-width: 70px;
+    }
+   }
