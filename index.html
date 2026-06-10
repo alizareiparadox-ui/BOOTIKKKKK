@@ -2,737 +2,547 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داشبورد برنامه روزانه من</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ولت آکادمیا | پنل گنگ مدیریت کارها</title>
+    <!-- فونت وزیرمتن + اعداد انگلیسی برای تایمر -->
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        /* ==============================
+           CSS CUSTOM PROPERTIES & RESET
+           ============================== */
+        :root {
+            --bg-deep: #03050a;
+            --surface-glass: rgba(10, 15, 28, 0.75);
+            --border-glass: rgba(255, 255, 255, 0.06);
+            --text-primary: #ede9fe;
+            --text-secondary: #a5b4fc;
+            --accent-indigo: #6366f1;
+            --accent-violet: #8b5cf6;
+            --accent-glow: rgba(99, 102, 241, 0.4);
+            --danger: #f87171;
+            --success: #34d399;
+            --radius-xl: 2.25rem;
+            --radius-lg: 1.75rem;
+            --radius-md: 1.25rem;
+            --transition-smooth: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            --shadow-card: 0 25px 45px -12px rgba(0,0,0,0.7), 0 0 25px rgba(79, 70, 229, 0.15);
+            --shadow-glow: 0 0 30px rgba(129, 140, 248, 0.5);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #4361ee;
-            --secondary: #3a0ca3;
-            --success: #4cc9f0;
-            --warning: #f72585;
-            --danger: #e63946;
-            --bg-color: #f8f9fa;
-            --card-color: #ffffff;
-            --text-color: #2b2d42;
-            --border-color: #e9ecef;
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 20px;
+            font-family: 'Vazirmatn', system-ui, sans-serif;
+            background: var(--bg-deep);
+            background-image: 
+                radial-gradient(ellipse at 25% 20%, #0f0f2a 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 80%, #1a1025 0%, transparent 55%),
+                linear-gradient(180deg, #03050a 0%, #0a0a1a 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.8rem;
+            color: var(--text-primary);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* اسکرول‌بار شیشه‌ای */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 20px; }
+        ::-webkit-scrollbar-thumb { background: var(--accent-indigo); border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background: #818cf8; }
+
+        /* =====================
+           MAIN CONTAINER (GLASS)
+           ===================== */
+        .app {
+            width: 100%;
+            max-width: 720px;
+            background: var(--surface-glass);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-xl);
+            padding: 2.2rem 2rem;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition-smooth);
+            animation: floatIn 0.8s ease-out;
         }
 
-        /* هدر */
-        header {
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(25px) scale(0.97); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .app-header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
         }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .app-title {
+            font-size: 2.3rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #c084fc, #818cf8, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 18px var(--accent-glow));
+            margin-bottom: 0.2rem;
+        }
+        .app-subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
-        .date-display {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 10px;
+        /* کارت نقل قول */
+        .quote-panel {
+            background: rgba(20, 20, 40, 0.55);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: var(--radius-lg);
+            padding: 1.6rem 1.8rem;
+            margin-bottom: 2.2rem;
+            text-align: center;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease;
+        }
+        .quote-text {
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 2;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            word-spacing: 3px;
+        }
+        .quote-author {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-violet);
+            letter-spacing: 0.3px;
+            opacity: 0.9;
         }
 
-        .overall-progress {
-            margin-top: 15px;
-        }
-
-        /* گرید اصلی */
-        .main-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-bottom: 30px;
-        }
-
-        /* کارت‌ها */
-        .card {
-            background: rgba(255,255,255,0.95);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .card-header {
+        /* پنل تایمر */
+        .timer-panel {
+            background: #0a0c18;
+            border: 1px solid #26264a;
+            border-radius: var(--radius-lg);
+            padding: 1.8rem 1.5rem;
+            margin: 1.8rem 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--border-color);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.6), 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .timer-mode-badge {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #b9c2ff;
+            background: rgba(99, 102, 241, 0.15);
+            padding: 0.3rem 1.3rem;
+            border-radius: 2rem;
+            margin-bottom: 0.7rem;
+            border: 1px solid rgba(129, 140, 248, 0.3);
+        }
+        .timer-clock {
+            font-size: 5rem;
+            font-weight: 900;
+            font-family: 'Vazirmatn', monospace;
+            letter-spacing: 8px;
+            color: #e8ecff;
+            text-shadow: 0 0 35px #6366f1;
+            margin: 0.5rem 0 1.3rem;
+            direction: ltr;
+            display: inline-block;
+        }
+        .timer-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            justify-content: center;
+        }
+        .btn {
+            background: rgba(18, 18, 38, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #4f46e5;
+            color: #d4d9ff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.6rem;
+            border-radius: 3rem;
+            cursor: pointer;
+            font-family: 'Vazirmatn';
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            letter-spacing: 0.2px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .btn:hover {
+            background: #4f46e5;
+            color: #ffffff;
+            border-color: #818cf8;
+            box-shadow: 0 0 28px #6366f1;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #4b5563;
+            color: #cbd5e1;
+        }
+        .btn-outline:hover {
+            border-color: #8b5cf6;
+            color: white;
+            background: rgba(139, 92, 246, 0.2);
         }
 
-        .card-title {
+        /* نمودار دایره‌ای */
+        .chart-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0 1.2rem;
+            position: relative;
+        }
+        canvas#progressCanvas {
+            width: 160px;
+            height: 160px;
+            filter: drop-shadow(0 0 25px #6366f1);
+            transition: filter 0.3s;
+        }
+        .chart-percent {
+            position: absolute;
+            font-weight: 900;
+            font-size: 2.2rem;
+            color: #ddd6fe;
+            text-shadow: 0 0 20px #4f46e5;
+        }
+
+        /* بخش کارها */
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0 0.7rem;
+        }
+        .task-header h3 {
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--primary);
+            color: #cbd5e1;
         }
-
-        .card-icon {
-            font-size: 1.5rem;
-        }
-
-        /* آیتم‌ها */
-        .task-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .task-item:hover {
-            background: rgba(0,0,0,0.02);
-            border-radius: 8px;
-            padding: 12px 10px;
-        }
-
-        .task-item:last-child {
-            border-bottom: none;
-        }
-
-        .task-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-            accent-color: var(--success);
-        }
-
-        .task-label {
-            font-size: 1rem;
-            flex: 1;
-        }
-
-        /* کانتر */
-        .counter {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .counter-btn {
-            width: 32px;
-            height: 32px;
-            border: none;
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-        }
-
-        .counter-btn:hover {
-            background: var(--secondary);
-            transform: scale(1.1);
-        }
-
-        .counter-value {
-            min-width: 50px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        /* نوار پیشرفت */
-        .progress-container {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: var(--border-color);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--success), var(--primary));
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-
-        /* بخش ورزش */
-        .workout-exercise {
-            background: rgba(67, 97, 238, 0.05);
-            border-radius: 10px;
-            padding: 10px;
-            margin: 8px 0;
-        }
-
-        .exercise-name {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .exercise-sets {
+        .task-counter {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
             font-size: 0.85rem;
-            color: #666;
+            font-weight: 700;
+            color: #a5b4fc;
         }
-
-        /* دکمه‌ها */
-        .reset-btn {
-            background: linear-gradient(135deg, var(--warning), var(--danger));
-            color: white;
+        .add-task-row {
+            display: flex;
+            gap: 0.7rem;
+            margin-bottom: 1.7rem;
+        }
+        .task-input {
+            flex: 2;
+            background: rgba(12, 12, 25, 0.85);
+            border: 1px solid #334155;
+            border-radius: 2.5rem;
+            padding: 0.95rem 1.5rem;
+            color: #f1f5f9;
+            font-family: 'Vazirmatn';
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            outline: none;
+            transition: 0.25s;
+        }
+        .task-input:focus {
+            border-color: #818cf8;
+            box-shadow: 0 0 20px #4f46e5;
+        }
+        .btn-add {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
             border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            padding: 0.95rem 2rem;
+            border-radius: 2.5rem;
             cursor: pointer;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            width: 100%;
-            transition: all 0.3s ease;
-            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(99, 102, 241, 0.5);
+            transition: var(--transition-smooth);
+        }
+        .btn-add:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 25px #818cf8;
         }
 
-        .reset-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(247, 37, 133, 0.4);
+        .task-list {
+            list-style: none;
+            max-height: 420px;
+            overflow-y: auto;
+            padding: 0;
+        }
+        .task-item {
+            background: rgba(20, 20, 38, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.2rem;
+            margin-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+        .task-item:hover {
+            border-color: #4f46e5;
+            background: rgba(35, 35, 60, 0.7);
+        }
+        .task-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+        .task-checkbox {
+            width: 22px;
+            height: 22px;
+            accent-color: #818cf8;
+            transform: scale(1.2);
+            cursor: pointer;
+            border-radius: 6px;
+        }
+        .task-text {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #e2e8f0;
+        }
+        .completed-task .task-text {
+            text-decoration: line-through;
+            color: #64748b;
+            opacity: 0.65;
+        }
+        .delete-task {
+            background: transparent;
+            border: none;
+            color: #64748b;
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.4rem 0.7rem;
+            border-radius: 1rem;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+        .delete-task:hover {
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.15);
         }
 
-        /* رسپانسیو */
-        @media (max-width: 768px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .card {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .task-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .counter {
-                align-self: flex-end;
-            }
+        @media (max-width: 500px) {
+            .app { padding: 1.5rem 1rem; }
+            .timer-clock { font-size: 3.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 داشبورد برنامه روزانه من</h1>
-            <div class="date-display" id="currentDate">امروز: در حال بارگذاری...</div>
-            <div class="overall-progress">
-                <div class="progress-info">
-                    <span>پیشرفت کلی امروز:</span>
-                    <span id="overallProgressText">0%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="overallProgress"></div>
-                </div>
-            </div>
-        </header>
+    <main class="app">
+        <div class="app-header">
+            <h1 class="app-title">⚡ GANG FOCUS</h1>
+            <p class="app-subtitle">تیک بزن ، جلو برو ، بدرخش</p>
+        </div>
 
-        <div class="main-grid">
-            <!-- بخش مطالعاتی -->
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📚 کنکور و فرهنگیان</h2>
-                    <span class="card-icon">🎯</span>
-                </div>
-                <div id="studyTasks">
-                    <!-- tasks populated by JS -->
-                </div>
-                <div class="progress-container">
-                    <div class="progress-info">
-                        <span>پیشرفت بخش:</span>
-                        <span id="studyProgressText">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="studyProgress"></div>
-                    </div>
-                </div>
-            </div>
+        <!-- نقل قول انگیزشی -->
+        <div class="quote-panel" id="quoteContainer">
+            <div class="quote-text" id="quoteDisplay">"ذهن مانند چتر نجات است؛ وقتی باز شود بهتر کار می‌کند."</div>
+            <div class="quote-author" id="authorDisplay">— فرانک زاپا</div>
+        </div>
 
-            <!-- بخش اینستاگرام -->
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">📱 اینستاگرام</h2>
-                    <span class="card-icon">📈</span>
-                </div>
-                <div id="instagramTasks">
-                    <!-- tasks populated by JS -->
-                </div>
-                <div class="progress-container">
-                    <div class="progress-info">
-                        <span>پیشرفت بخش:</span>
-                        <span id="instagramProgressText">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="instagramProgress"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بخش تغذیه -->
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">🍎 تغذیه</h2>
-                    <span class="card-icon">💪</span>
-                </div>
-                <div id="nutritionTasks">
-                    <!-- tasks populated by JS -->
-                </div>
-                <div class="progress-container">
-                    <div class="progress-info">
-                        <span>پیشرفت بخش:</span>
-                        <span id="nutritionProgressText">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="nutritionProgress"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- بخش ورزش -->
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">💪 ورزش</h2>
-                    <span class="card-icon">🔥</span>
-                </div>
-                <div id="workoutContent">
-                    <!-- workout content populated by JS -->
-                </div>
-                <div class="progress-container">
-                    <div class="progress-info">
-                        <span>پیشرفت بخش:</span>
-                        <span id="workoutProgressText">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="workoutProgress"></div>
-                    </div>
-                </div>
+        <!-- تایمر پومودورو -->
+        <div class="timer-panel">
+            <span class="timer-mode-badge" id="modeLabel">📚 مطالعه</span>
+            <div class="timer-clock" id="timerDisplay">25:00</div>
+            <div class="timer-actions">
+                <button class="btn" id="startPauseBtn">▶ شروع</button>
+                <button class="btn btn-outline" id="resetBtn">↺ بازنشانی</button>
+                <button class="btn btn-outline" id="switchModeBtn">🔄 استراحت</button>
             </div>
         </div>
 
-        <button class="reset-btn" onclick="resetDay()">
-            🔄 ریست برنامه امروز
-        </button>
-    </div>
+        <!-- نمودار دایره‌ای -->
+        <div class="chart-area">
+            <canvas id="progressCanvas" width="160" height="160"></canvas>
+            <span class="chart-percent" id="chartPercentLabel">0%</span>
+        </div>
+
+        <!-- مدیریت کارها -->
+        <div class="task-header">
+            <h3>📋 کارهای تو</h3>
+            <span class="task-counter" id="taskCounterDisplay">۰ کار</span>
+        </div>
+        <div class="add-task-row">
+            <input type="text" class="task-input" id="taskInputField" placeholder="اسم درس یا وظیفه...">
+            <button class="btn-add" id="addTaskButton">➕ افزودن</button>
+        </div>
+        <ul class="task-list" id="taskListContainer"></ul>
+    </main>
 
     <script>
-        // داده‌های کامل برنامه
-        const appData = {
-            study: [
-                { id: 'study1', label: 'یک درس نهایی', checked: false, type: 'checkbox' },
-                { id: 'study2', label: 'یک صفحه کندخوانی و تندخوانی', checked: false, type: 'checkbox' },
-                { id: 'study3', label: 'یک صفحه قرآن', checked: false, type: 'checkbox' },
-                { id: 'study4', label: '10 تست برای هر درس فیلم', checked: false, type: 'checkbox' },
-                { id: 'study5', label: 'دو عدد فیلم آموزشی', checked: false, type: 'checkbox' },
-                { id: 'study6', label: '5 صفحه کتاب فرهنگیان', checked: false, type: 'checkbox' },
-                { id: 'study7', label: 'تست بخش فرهنگیان', checked: false, type: 'checkbox' }
-            ],
-            instagram: [
-                { id: 'ig1', label: 'فالو پیج ممد (80)', value: 0, target: 80, type: 'counter' },
-                { id: 'ig2', label: 'فالو پیج سارا/ویدا (80)', value: 0, target: 80, type: 'counter' },
-                { id: 'ig3', label: 'فالو پیج مذهبی (80)', value: 0, target: 80, type: 'counter' },
-                { id: 'ig4', label: 'پست در 3 پیج سریع', checked: false, type: 'checkbox' }
-            ],
-            nutrition: [
-                { id: 'nut1', label: 'تغذیه باشگاه', checked: false, type: 'checkbox' },
-                { id: 'nut2', label: 'صبحانه کامل', checked: false, type: 'checkbox' },
-                { id: 'nut3', label: '2 میوه قبل صبحانه', checked: false, type: 'checkbox' },
-                { id: 'nut4', label: 'ناهار (2 بشقاب)', checked: false, type: 'checkbox' },
-                { id: 'nut5', label: 'عصرانه (باقی ناهار/تخم مرغ/سیب زمینی)', checked: false, type: 'checkbox' },
-                { id: 'nut6', label: 'شام کامل', checked: false, type: 'checkbox' },
-                { id: 'nut7', label: 'وعده قبل خواب (2 میوه/شیر)', checked: false, type: 'checkbox' }
-            ],
-            workout: {
-                days: {
-                    'شنبه': [
-                        { id: 'sat1', name: 'شنا عادی', sets: '100 تکرار', checked: false },
-                        { id: 'sat2', name: 'شنا بالا', sets: '100 تکرار', checked: false },
-                        { id: 'sat3', name: 'شنا پایین', sets: '100 تکرار', checked: false },
-                        { id: 'sat4', name: 'پرس سینه عادی', sets: '15 تکرار × 4 ست', checked: false },
-                        { id: 'sat5', name: 'کول', sets: '15 تکرار × 4 ست', checked: false },
-                        { id: 'sat6', name: 'پشت شانه', sets: '12 تکرار × 4 ست', checked: false }
-                    ],
-                    'یکشنبه': [
-                        { id: 'sun1', name: 'سرشانه عادی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun2', name: 'سرشانه وی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun3', name: 'سرشانه چکشی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun4', name: 'سرشانه از بغل', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun5', name: 'سرشانه از جلو', sets: '15 تکرار × 4 ست', checked: false },
-                        { id: 'sun6', name: 'جلو بازو عادی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun7', name: 'جلو بازو لاری', sets: '12 تکرار × 3 ست', checked: false },
-                        { id: 'sun8', name: 'جلو بازو ساعد چرخشی', sets: '10 تکرار × 4 ست', checked: false },
-                        { id: 'sun9', name: 'جلو بازو هالتر', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun10', name: 'جلو بازو چکشی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'sun11', name: 'ساعد', sets: '20 تکرار × 4 ست', checked: false }
-                    ],
-                    'دوشنبه': [
-                        { id: 'mon1', name: 'استراحت ورزشی 🏂🪂', sets: 'روز استراحت فعال', checked: false }
-                    ],
-                    'سه‌شنبه': [
-                        { id: 'tue1', name: 'اسکات', sets: '15 15 12 12 10 تکرار', checked: false },
-                        { id: 'tue2', name: 'جلو پا راه رفتن', sets: '15 15 12 12 10 تکرار', checked: false },
-                        { id: 'tue3', name: 'جلو پا روی مبل', sets: '12 12 10 10 تکرار', checked: false },
-                        { id: 'tue4', name: 'جلو پا تک پا', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'tue5', name: 'جلو پا اسکات داخل پا', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'tue6', name: 'فیله کمر', sets: '20 تکرار × 4 ست', checked: false },
-                        { id: 'tue7', name: 'پرس سینه', sets: '20 تکرار × 4 ست', checked: false }
-                    ],
-                    'چهارشنبه': [
-                        { id: 'wed1', name: 'زیر بغل دست جمع', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed2', name: 'زیر بغل دست باز', sets: '10 تکرار × 4 ست', checked: false },
-                        { id: 'wed3', name: 'زیر بغل اصلی دست باز', sets: '8 تکرار × 4 ست', checked: false },
-                        { id: 'wed4', name: 'زیر بغل اصلی دست جمع', sets: '6 تکرار × 4 ست', checked: false },
-                        { id: 'wed5', name: 'زیر بغل دمبل چکشی', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed6', name: 'زیر بغل دمبل دست بر عکس', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed7', name: 'پشت بازو خوابیده', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed8', name: 'پشت بازو ایستاده دمبل', sets: '10 تکرار × 4 ست', checked: false },
-                        { id: 'wed9', name: 'پشت بازو طناب', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed10', name: 'پشت بازو بالای سر', sets: '12 تکرار × 4 ست', checked: false },
-                        { id: 'wed11', name: 'پشت بازو رو پاسیون', sets: '12 تکرار × 4 ست', checked: false }
-                    ],
-                    'پنجشنبه': [
-                        { id: 'thu1', name: 'شنا پایین سینه دست عادی', sets: '20 تکرار × 4 ست', checked: false },
-                        { id: 'thu2', name: 'شنا پایین سینه سطح پایین تر', sets: '20 تکرار × 4 ست', checked: false },
-                        { id: 'thu3', name: 'شنا پایین سینه دست بر عکس', sets: '20 تکرار × 4 ست', checked: false },
-                        { id: 'thu4', name: 'دراز نشست', sets: '20 تکرار × 4 ست', checked: false },
-                        { id: 'thu5', name: 'شکم پهلو', sets: '18 تکرار × 4 ست', checked: false }
-                    ],
-                    'جمعه': [
-                        { id: 'fri1', name: 'تمرینات تنفسی', sets: 'روز استراحت و ریکاوری', checked: false }
-                    ]
+        (() => {
+            // ========================
+            // مدل نقل قول‌ها
+            // ========================
+            const QUOTES = [
+                { text: "ذهن مانند چتر نجات است؛ وقتی باز شود بهتر کار می‌کند.", author: "فرانک زاپا" },
+                { text: "تنها راه انجام کار بزرگ، عشق به کاری است که انجام می‌دهی.", author: "استیو جابز" },
+                { text: "موفقیت یعنی از شکستی به شکست دیگر رفتن بدون از دست دادن اشتیاق.", author: "وینستون چرچیل" },
+                { text: "آینده به کسانی تعلق دارد که به زیبایی رؤیاهایشان باور دارند.", author: "النور روزولت" },
+                { text: "هر استادی روزی یک مبتدی بوده است.", author: "ضرب‌المثل" },
+                { text: "امروز اولین روز از باقی عمر توست.", author: "بیل کین" },
+                { text: "تنها محدودیتی که داری، ذهن خودت است.", author: "ناشناس" },
+                { text: "برای رسیدن به قله‌ها، توقف ممنوع.", author: "ناشناس" }
+            ];
+
+            // ========================
+            // کلاس اصلی اپلیکیشن
+            // ========================
+            class GangFocusApp {
+                constructor() {
+                    // state
+                    this.tasks = [];
+                    this.timer = {
+                        seconds: 25 * 60,
+                        isRunning: false,
+                        mode: 'study', // study | break
+                        intervalId: null
+                    };
+                    this.STUDY_MINUTES = 25;
+                    this.BREAK_MINUTES = 5;
+
+                    // DOM elements
+                    this.quoteText = document.getElementById('quoteDisplay');
+                    this.quoteAuthor = document.getElementById('authorDisplay');
+                    this.timerDisplay = document.getElementById('timerDisplay');
+                    this.modeLabel = document.getElementById('modeLabel');
+                    this.startPauseBtn = document.getElementById('startPauseBtn');
+                    this.resetBtn = document.getElementById('resetBtn');
+                    this.switchModeBtn = document.getElementById('switchModeBtn');
+                    this.taskInput = document.getElementById('taskInputField');
+                    this.addBtn = document.getElementById('addTaskButton');
+                    this.taskContainer = document.getElementById('taskListContainer');
+                    this.taskCounterDisplay = document.getElementById('taskCounterDisplay');
+                    this.canvas = document.getElementById('progressCanvas');
+                    this.ctx = this.canvas.getContext('2d');
+                    this.chartPercentLabel = document.getElementById('chartPercentLabel');
+
+                    this.init();
                 }
-            }
-        };
 
-        // تاریخ فارسی
-        function getPersianDate() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return now.toLocaleDateString('fa-IR', options);
-        }
-
-        // روز هفته فارسی
-        function getPersianWeekday() {
-            const days = ['یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه', 'شنبه'];
-            return days[new Date().getDay()];
-        }
-
-        // لود داده‌ها
-        function loadData() {
-            const saved = localStorage.getItem('completeDailyPlanner');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                const today = new Date().toDateString();
-                
-                if (parsed.date === today) {
-                    Object.keys(appData).forEach(key => {
-                        if (parsed[key]) {
-                            if (key === 'workout') {
-                                appData.workout = parsed.workout;
-                            } else {
-                                appData[key] = appData[key].map((item, index) => ({
-                                    ...item,
-                                    ...parsed[key][index]
-                                }));
-                            }
-                        }
-                    });
+                init() {
+                    this.loadTasks();
+                    this.renderTasks();
+                    this.updateQuote();
+                    this.resetTimerForMode();
+                    this.attachEvents();
+                    this.drawChart(0);
+                    // نقل قول جدید هر ۴۰ ثانیه
+                    setInterval(() => this.updateQuote(), 40000);
                 }
-            }
-        }
 
-        // ذخیره داده‌ها
-        function saveData() {
-            const dataToSave = {
-                date: new Date().toDateString(),
-                ...appData
-            };
-            localStorage.setItem('completeDailyPlanner', JSON.stringify(dataToSave));
-            updateAllProgress();
-        }
-
-        // رندر تمام بخش‌ها
-        function renderAllSections() {
-            renderStudySection();
-            renderInstagramSection();
-            renderNutritionSection();
-            renderWorkoutSection();
-        }
-
-        // رندر بخش مطالعاتی
-        function renderStudySection() {
-            const container = document.getElementById('studyTasks');
-            container.innerHTML = appData.study.map(task => `
-                <div class="task-item">
-                    <div class="task-info">
-                        <input type="checkbox" class="task-checkbox" id="${task.id}" 
-                               ${task.checked ? 'checked' : ''} 
-                               onchange="toggleCheckbox('study', '${task.id}')">
-                        <label class="task-label" for="${task.id}">${task.label}</label>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // رندر بخش اینستاگرام
-        function renderInstagramSection() {
-            const container = document.getElementById('instagramTasks');
-            container.innerHTML = appData.instagram.map(task => {
-                if (task.type === 'counter') {
-                    return `
-                        <div class="task-item">
-                            <div class="task-info">
-                                <label class="task-label">${task.label}</label>
-                            </div>
-                            <div class="counter">
-                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', -5)">-5</button>
-                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', -1)">-</button>
-                                <span class="counter-value">${task.value}</span>
-                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', 1)">+</button>
-                                <button class="counter-btn" onclick="updateCounter('instagram', '${task.id}', 5)">+5</button>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    return `
-                        <div class="task-item">
-                            <div class="task-info">
-                                <input type="checkbox" class="task-checkbox" id="${task.id}" 
-                                       ${task.checked ? 'checked' : ''} 
-                                       onchange="toggleCheckbox('instagram', '${task.id}')">
-                                <label class="task-label" for="${task.id}">${task.label}</label>
-                            </div>
-                        </div>
-                    `;
+                // ============= نقل قول =============
+                updateQuote() {
+                    const random = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+                    this.quoteText.textContent = `"${random.text}"`;
+                    this.quoteAuthor.textContent = `— ${random.author}`;
                 }
-            }).join('');
-        }
 
-        // رندر بخش تغذیه
-        function renderNutritionSection() {
-            const container = document.getElementById('nutritionTasks');
-            container.innerHTML = appData.nutrition.map(task => `
-                <div class="task-item">
-                    <div class="task-info">
-                        <input type="checkbox" class="task-checkbox" id="${task.id}" 
-                               ${task.checked ? 'checked' : ''} 
-                               onchange="toggleCheckbox('nutrition', '${task.id}')">
-                        <label class="task-label" for="${task.id}">${task.label}</label>
-                    </div>
-                </div>
-            `).join('');
-        }
+                // ============= تایمر =============
+                formatTime(sec) {
+                    const m = Math.floor(sec / 60).toString().padStart(2, '0');
+                    const s = (sec % 60).toString().padStart(2, '0');
+                    return `${m}:${s}`;
+                }
 
-        // رندر بخش ورزش
-        function renderWorkoutSection() {
-            const today = getPersianWeekday();
-            const todayWorkout = appData.workout.days[today] || [];
-            const container = document.getElementById('workoutContent');
-            
-            container.innerHTML = `
-                <div style="margin-bottom: 15px; padding: 10px; background: rgba(67, 97, 238, 0.1); border-radius: 10px;">
-                    <strong>امروز: ${today}</strong>
-                </div>
-                ${todayWorkout.map(exercise => `
-                    <div class="workout-exercise">
-                        <div class="task-item">
-                            <div class="task-info">
-                                <input type="checkbox" class="task-checkbox" id="${exercise.id}" 
-                                       ${exercise.checked ? 'checked' : ''} 
-                                       onchange="toggleWorkoutExercise('${today}', '${exercise.id}')">
-                                <div style="flex: 1;">
-                                    <div class="exercise-name">${exercise.name}</div>
-                                    <div class="exercise-sets">${exercise.sets}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `).join('')}
-            `;
-        }
+                updateTimerUI() {
+                    this.timerDisplay.textContent = this.formatTime(this.timer.seconds);
+                }
 
-        // توابع تعاملی
-        function toggleCheckbox(section, taskId) {
-            const task = appData[section].find(t => t.id === taskId);
-            if (task) {
-                task.checked = !task.checked;
-                saveData();
-                renderAllSections();
-            }
-        }
+                stopTimer() {
+                    if (this.timer.intervalId) clearInterval(this.timer.intervalId);
+                    this.timer.isRunning = false;
+                    this.startPauseBtn.textContent = '▶ شروع';
+                }
 
-        function toggleWorkoutExercise(day, exerciseId) {
-            const exercise = appData.workout.days[day].find(e => e.id === exerciseId);
-            if (exercise) {
-                exercise.checked = !exercise.checked;
-                saveData();
-                renderWorkoutSection();
-                updateAllProgress();
-            }
-        }
+                resetTimerForMode() {
+                    this.stopTimer();
+                    this.timer.seconds = this.timer.mode === 'study' ? this.STUDY_MINUTES * 60 : this.BREAK_MINUTES * 60;
+                    this.modeLabel.textContent = this.timer.mode === 'study' ? '📚 مطالعه' : '☕ استراحت';
+                    this.switchModeBtn.textContent = this.timer.mode === 'study' ? '🔄 استراحت' : '🔄 مطالعه';
+                    this.updateTimerUI();
+                }
 
-        function updateCounter(section, taskId, change) {
-            const task = appData[section].find(t => t.id === taskId);
-            if (task) {
-                task.value = Math.max(0, task.value + change);
-                saveData();
-                renderAllSections();
-            }
-        }
-
-        // آپدیت پیشرفت
-        function updateAllProgress() {
-            updateSectionProgress('study');
-            updateSectionProgress('instagram');
-            updateSectionProgress('nutrition');
-            updateSectionProgress('workout');
-            updateOverallProgress();
-        }
-
-        function updateSectionProgress(section) {
-            let progress = 0;
-            
-            if (section === 'workout') {
-                const today = getPersianWeekday();
-                const todayWorkout = appData.workout.days[today] || [];
-                const total = todayWorkout.length;
-                const completed = todayWorkout.filter(ex => ex.checked).length;
-                progress = total > 0 ? Math.round((completed / total) * 100) : 0;
-            } else {
-                const tasks = appData[section];
-                const total = tasks.length;
-                const completed = tasks.filter(task => {
-                    if (task.type === 'counter') {
-                        return task.value >= task.target;
+                toggleTimer() {
+                    if (this.timer.isRunning) {
+                        this.stopTimer();
+                        return;
                     }
-                    return task.checked;
-                }).length;
-                
-                progress = total > 0 ? Math.round((completed / total) * 100) : 0;
-            }
-            
-            const progressBar = document.getElementById(`${section}Progress`);
-            const progressText = document.getElementById(`${section}ProgressText`);
-            
-            if (progressBar && progressText) {
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${progress}%`;
-            }
-        }
-
-        function updateOverallProgress() {
-            const sections = ['study', 'instagram', 'nutrition', 'workout'];
-            let totalProgress = 0;
-            
-            sections.forEach(section => {
-                const progressText = document.getElementById(`${section}ProgressText`);
-                if (progressText) {
-                    const progress = parseInt(progressText.textContent) || 0;
-                    totalProgress += progress;
+                    if (this.timer.seconds <= 0) this.resetTimerForMode();
+                    this.timer.isRunning = true;
+                    this.startPauseBtn.textContent = '⏸ توقف';
+                    this.timer.intervalId = setInterval(() => {
+                        if (this.timer.seconds <= 0) {
+                            this.stopTimer();
+                            alert(this.timer.mode === 'study' ? '⏰ مطالعه تموم شد! برو استراحت.' : '☕ استراحت تموم شد! شروع کن.');
+                            return;
+                        }
+                        this.timer.seconds--;
+                        this.updateTimerUI();
+                    }, 1000);
                 }
-            });
-            
-            const overallProgress = Math.round(totalProgress / sections.length);
-            
-            const overallBar = document.getElementById('overallProgress');
-            const overallText = document.getElementById('overallProgressText');
-            
-            if (overallBar && overallText) {
-                overallBar.style.width = `${overallProgress}%`;
-                overallText.textContent = `${overallProgress}%`;
-            }
-        }
 
-        // ریست روزانه
-        function resetDay() {
-            if (confirm('آیا از ریست کردن برنامه امروز مطمئنید؟')) {
-                // ریست بخش‌های مختلف
-                ['study', 'instagram', 'nutrition'].forEach(section => {
-                    appData[section].forEach(task => {
-                        task.checked = false;
-                        if (task.value) task.value = 0;
-                    });
-                });
-                
-                // ریست ورزش امروز
-                const today = getPersianWeekday();
-                if (appData.workout.days[today]) {
-                    appData.workout.days[today].forEach(exercise => {
-                        exercise.checked = false;
-                    });
+                switchMode() {
+                    this.stopTimer();
+                    this.timer.mode = this.timer.mode === 'study' ? 'break' : 'study';
+                    this.resetTimerForMode();
                 }
-                
-                saveData();
-                renderAllSections();
-                alert('برنامه امروز ریست شد! 💪');
-            }
-        }
 
-        // مقداردهی اولیه
-        function init() {
-            document.getElementById('currentDate').textContent = `امروز: ${getPersianDate()}`;
-            loadData();
-            renderAllSections();
-            updateAllProgress();
-        }
+                // ============= مدیریت کارها =============
+                loadTasks() {
+                    try {
+                        const stored = localStorage.getItem('gang_focus_tasks_v2');
+                        this.tasks = stored ? JSON.parse(stored) : [];
+                    } catch {
+                        this.tasks = [];
+                    }
+                }
 
-        // اجرا هنگام لود صفحه
-        document.addEventListener('DOMContentLoaded', init);
-    </script>
-</body>
-</html>
+                saveTasks() {
+                    localStorage.setItem('gang_focus_tasks_v2', JSON.stringify(this.tasks));
+                }
+
+                addTask(text) {
+                    const trimmed = text.trim();
+                    if (!trimmed) return;
+                    this.tasks.push({
+                        id: Date.now(),
+                        text: trimmed,
+                        completed: false
+                    });
+                    this.saveTasks();
+                    this.renderTasks();
+                    this.taskInput.value = '';
+                }
+
+                toggleTask(id, completed) {
+                    const task = this.tasks.find(t => t.id === id);
+                    if (task) {
+                        task.completed = completed;
+                        this.saveTasks();
+                      
