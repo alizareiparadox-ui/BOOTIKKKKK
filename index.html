@@ -3,234 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gang Focus Pro | پنل حرفه‌ای مدیریت کارها</title>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <title>Gang Focus | پنل گنگ مدیریت کارها</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- منوی کناری -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2>⚡ GANG</h2>
-            <button class="sidebar-close" id="sidebarClose">✕</button>
-        </div>
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-item active" data-tab="dashboard">🏠 داشبورد</a>
-            <a href="#" class="nav-item" data-tab="tasks">📋 کارها</a>
-            <a href="#" class="nav-item" data-tab="stats">📊 آمار</a>
-            <a href="#" class="nav-item" data-tab="notes">📝 یادداشت</a>
-            <a href="#" class="nav-item" data-tab="settings">⚙️ تنظیمات</a>
-        </nav>
-        <div class="sidebar-footer">
-            <button class="btn btn-outline" id="exportData">📤 خروجی JSON</button>
-            <button class="btn btn-outline" id="importData">📥 ورودی JSON</button>
-            <input type="file" id="importFile" accept=".json" style="display:none">
-        </div>
-    </div>
-
-    <!-- اورلی -->
-    <div class="overlay" id="overlay"></div>
-
-    <!-- کانواس کانفتی -->
+    <!-- ذرات کانفتی -->
     <canvas id="confettiCanvas"></canvas>
 
-    <!-- اعلان -->
-    <div class="notification" id="notification"></div>
-
     <main class="app">
-        <!-- دکمه منو -->
-        <button class="menu-toggle" id="menuToggle">☰</button>
-
         <!-- هدر -->
         <div class="app-header">
-            <h1 class="app-title">⚡ GANG FOCUS PRO</h1>
+            <h1 class="app-title">⚡ GANG FOCUS</h1>
             <p class="app-subtitle">تیک بزن ، جلو برو ، بدرخش</p>
             <div class="date-row">
                 <span class="shamsi-date" id="shamsiDate">📅 </span>
                 <span class="live-clock" id="liveClock">🕐 </span>
-                <span class="weather-info" id="weatherInfo">🌤️ --°</span>
             </div>
         </div>
 
-        <!-- تب‌ها -->
-        <div class="tab-container">
-            <!-- تب داشبورد -->
-            <div class="tab-content active" id="tab-dashboard">
-                <!-- استریک و امتیاز -->
-                <div class="stats-row">
-                    <div class="stat-card">
-                        <span class="stat-icon">🔥</span>
-                        <span class="stat-value" id="streakCount">0</span>
-                        <span class="stat-label">روز پشت سر هم</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-icon">⭐</span>
-                        <span class="stat-value" id="totalScore">0</span>
-                        <span class="stat-label">امتیاز کل</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-icon">⏱️</span>
-                        <span class="stat-value" id="todayStudyTime">0 دقیقه</span>
-                        <span class="stat-label">مطالعه امروز</span>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-icon">🎯</span>
-                        <span class="stat-value" id="weeklyGoal">0%</span>
-                        <span class="stat-label">هدف هفتگی</span>
-                    </div>
-                </div>
-
-                <!-- نقل قول -->
-                <div class="quote-panel">
-                    <div class="quote-text" id="quoteText">"ذهن مانند چتر نجات است."</div>
-                    <div class="quote-author" id="quoteAuthor">— فرانک زاپا</div>
-                    <button class="btn btn-sm btn-outline" id="refreshQuote">🔄 نقل قول جدید</button>
-                    <button class="btn btn-sm btn-outline" id="copyQuote">📋 کپی</button>
-                    <button class="btn btn-sm btn-outline" id="shareQuote">📤 اشتراک</button>
-                </div>
-
-                <!-- تایمر -->
-                <div class="timer-panel">
-                    <span class="timer-mode-badge" id="modeLabel">📚 مطالعه</span>
-                    <div class="timer-clock" id="timerDisplay">25:00</div>
-                    <div class="timer-sessions" id="timerSessions">جلسه ۰ از ۴</div>
-                    <div class="timer-actions">
-                        <button class="btn btn-primary" id="startPauseBtn">▶ شروع</button>
-                        <button class="btn btn-outline" id="resetBtn">↺ بازنشانی</button>
-                        <button class="btn btn-outline" id="switchModeBtn">🔄 استراحت</button>
-                        <button class="btn btn-outline" id="skipBtn">⏭ رد کردن</button>
-                    </div>
-                    <div class="auto-pomodoro">
-                        <label class="toggle-label">
-                            <input type="checkbox" id="autoPomodoroCheck" checked>
-                            <span>چرخه خودکار</span>
-                        </label>
-                        <label class="toggle-label">
-                            <span>تعداد جلسات:</span>
-                            <select id="sessionCount" class="session-select">
-                                <option value="2">۲</option>
-                                <option value="4" selected>۴</option>
-                                <option value="6">۶</option>
-                                <option value="8">۸</option>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- نمودار -->
-                <div class="chart-area">
-                    <canvas id="progressCanvas" width="180" height="180"></canvas>
-                    <span class="chart-percent" id="chartPercentLabel">0%</span>
-                </div>
-
-                <!-- نمودار میله‌ای -->
-                <div class="bar-chart-area">
-                    <h4>📊 عملکرد هفتگی</h4>
-                    <canvas id="barChartCanvas" width="400" height="150"></canvas>
-                </div>
+        <!-- استریک و امتیاز -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-value" id="streakCount">0</span>
+                <span class="stat-label">روز پشت سر هم</span>
             </div>
-
-            <!-- تب کارها -->
-            <div class="tab-content" id="tab-tasks">
-                <div class="task-filters">
-                    <button class="filter-btn active" data-filter="all">همه</button>
-                    <button class="filter-btn" data-filter="active">فعال</button>
-                    <button class="filter-btn" data-filter="completed">انجام شده</button>
-                    <button class="filter-btn" data-filter="high">اولویت بالا</button>
-                    <button class="filter-btn" data-filter="medium">متوسط</button>
-                    <button class="filter-btn" data-filter="low">کم</button>
-                </div>
-                <div class="task-header">
-                    <h3>📋 کارهای تو</h3>
-                    <span class="task-counter" id="taskCounterDisplay2">۰ کار</span>
-                </div>
-                <div class="add-task-row">
-                    <input type="text" class="task-input" id="taskInputField2" placeholder="اسم درس یا وظیفه..." autocomplete="off">
-                    <select class="priority-select" id="prioritySelect">
-                        <option value="medium">متوسط</option>
-                        <option value="high">بالا</option>
-                        <option value="low">کم</option>
-                    </select>
-                    <input type="date" class="deadline-input" id="deadlineInput">
-                    <button class="btn-add" id="addTaskButton2">➕ افزودن</button>
-                </div>
-                <ul class="task-list" id="taskListContainer2">
-                    <li class="empty-message">هنوز کاری اضافه نکردی 🧠</li>
-                </ul>
+            <div class="stat-card">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-value" id="totalScore">0</span>
+                <span class="stat-label">امتیاز کل</span>
             </div>
-
-            <!-- تب آمار -->
-            <div class="tab-content" id="tab-stats">
-                <h3>📊 آمار و گزارش</h3>
-                <div class="stats-grid">
-                    <div class="stat-card large">
-                        <span>📚 کل مطالعه</span>
-                        <span class="big-number" id="totalStudyHours">۰ ساعت</span>
-                    </div>
-                    <div class="stat-card large">
-                        <span>✅ کارهای انجام شده</span>
-                        <span class="big-number" id="totalCompletedTasks">۰</span>
-                    </div>
-                    <div class="stat-card large">
-                        <span>🔥 بهترین استریک</span>
-                        <span class="big-number" id="bestStreak">۰ روز</span>
-                    </div>
-                    <div class="stat-card large">
-                        <span>📅 روزهای فعال</span>
-                        <span class="big-number" id="activeDays">۰ روز</span>
-                    </div>
-                </div>
-                <div class="history-list" id="historyList">
-                    <h4>📜 تاریخچه امروز</h4>
-                </div>
-            </div>
-
-            <!-- تب یادداشت -->
-            <div class="tab-content" id="tab-notes">
-                <h3>📝 یادداشت روزانه</h3>
-                <textarea class="note-editor" id="dailyNote" placeholder="اینجا بنویس... چطور بود امروز؟ چه کارایی کردی؟"></textarea>
-                <button class="btn btn-primary" id="saveNote">💾 ذخیره یادداشت</button>
-                <span class="note-saved" id="noteSavedIndicator"></span>
-            </div>
-
-            <!-- تب تنظیمات -->
-            <div class="tab-content" id="tab-settings">
-                <h3>⚙️ تنظیمات</h3>
-                <div class="settings-group">
-                    <label class="setting-item">
-                        <span>⏱️ مدت مطالعه (دقیقه)</span>
-                        <input type="number" id="studyDuration" value="25" min="5" max="120" class="setting-input">
-                    </label>
-                    <label class="setting-item">
-                        <span>☕ مدت استراحت (دقیقه)</span>
-                        <input type="number" id="breakDuration" value="5" min="1" max="30" class="setting-input">
-                    </label>
-                    <label class="setting-item">
-                        <span>🎯 هدف مطالعه هفتگی (ساعت)</span>
-                        <input type="number" id="weeklyGoalHours" value="10" min="1" max="100" class="setting-input">
-                    </label>
-                    <label class="setting-item">
-                        <span>🔊 صدای اعلان</span>
-                        <select id="notificationSound" class="setting-input">
-                            <option value="beep">بیپ ساده</option>
-                            <option value="bell">زنگ</option>
-                            <option value="chime">چایم</option>
-                        </select>
-                    </label>
-                    <label class="setting-item">
-                        <span>🎨 تم</span>
-                        <select id="themeSelect" class="setting-input">
-                            <option value="dark">تاریک</option>
-                            <option value="darker">تاریک عمیق</option>
-                            <option value="light">روشن</option>
-                        </select>
-                    </label>
-                    <button class="btn btn-primary" id="saveSettings">💾 ذخیره تنظیمات</button>
-                </div>
+            <div class="stat-card">
+                <span class="stat-icon">⏱️</span>
+                <span class="stat-value" id="todayStudyTime">0 دقیقه</span>
+                <span class="stat-label">مطالعه امروز</span>
             </div>
         </div>
+
+        <!-- نقل قول انگیزشی -->
+        <div class="quote-panel">
+            <div class="quote-text" id="quoteText">"ذهن مانند چتر نجات است؛ وقتی باز شود بهتر کار می‌کند."</div>
+            <div class="quote-author" id="quoteAuthor">— فرانک زاپا</div>
+        </div>
+
+        <!-- تایمر پومودورو -->
+        <div class="timer-panel">
+            <span class="timer-mode-badge" id="modeLabel">📚 مطالعه</span>
+            <div class="timer-clock" id="timerDisplay">25:00</div>
+            <div class="timer-actions">
+                <button class="btn btn-primary" id="startPauseBtn">▶ شروع</button>
+                <button class="btn btn-outline" id="resetBtn">↺ بازنشانی</button>
+                <button class="btn btn-outline" id="switchModeBtn">🔄 استراحت</button>
+            </div>
+            <div class="auto-pomodoro">
+                <label class="toggle-label">
+                    <input type="checkbox" id="autoPomodoroCheck">
+                    <span>چرخه خودکار (۲۵ دقیقه مطالعه + ۵ دقیقه استراحت)</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- نمودار دایره‌ای -->
+        <div class="chart-area">
+            <canvas id="progressCanvas" width="180" height="180"></canvas>
+            <span class="chart-percent" id="chartPercentLabel">0%</span>
+        </div>
+
+        <!-- مدیریت کارها -->
+        <div class="task-header">
+            <h3>📋 کارهای تو</h3>
+            <span class="task-counter" id="taskCounterDisplay">۰ کار</span>
+        </div>
+
+        <div class="add-task-row">
+            <input
+                type="text"
+                class="task-input"
+                id="taskInputField"
+                placeholder="اسم درس یا وظیفه..."
+                autocomplete="off"
+            >
+            <button class="btn-add" id="addTaskButton">➕ افزودن</button>
+        </div>
+
+        <ul class="task-list" id="taskListContainer">
+            <li class="empty-message">هنوز کاری اضافه نکردی 🧠</li>
+        </ul>
     </main>
 
     <script src="script.js"></script>
 </body>
-    </html>
+</html>
