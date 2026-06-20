@@ -4,601 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>برای عشق من، مائده ❤️</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0d0000, #2d0000, #1a0000, #0d0000);
-            background-size: 400% 400%;
-            animation: bgMove 15s ease infinite;
-            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
-            overflow-x: hidden;
-            cursor: default;
-            position: relative;
-        }
-
-        @keyframes bgMove {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        /* ============ قلب‌های شناور ============ */
-        .hearts-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .floating-heart {
-            position: absolute;
-            bottom: -50px;
-            font-size: 24px;
-            animation: floatUp linear infinite;
-            opacity: 0;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
-            10% { opacity: 0.9; transform: translateY(-10vh) rotate(36deg) scale(1.1); }
-            90% { opacity: 0.5; }
-            100% { transform: translateY(-110vh) rotate(360deg) scale(0.2); opacity: 0; }
-        }
-
-        /* ============ ذرات موس ============ */
-        .mouse-particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            animation: particleFade 1s ease-out forwards;
-        }
-
-        @keyframes particleFade {
-            0% { opacity: 1; transform: translate(0, 0) scale(1); }
-            100% { opacity: 0; transform: translate(var(--dx), -40px) scale(0); }
-        }
-
-        /* ============ اسکرول ============ */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* ============ سکشن اصلی ============ */
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* ============ تیتر ============ */
-        .title {
-            color: #fff;
-            font-size: 52px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 30px rgba(255, 0, 100, 0.9), 0 0 60px rgba(255, 0, 100, 0.5);
-            font-weight: bold;
-            letter-spacing: 2px;
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes titleGlow {
-            0% { text-shadow: 0 0 20px rgba(255, 0, 100, 0.7), 0 0 40px rgba(255, 0, 100, 0.3); }
-            100% { text-shadow: 0 0 40px rgba(255, 0, 100, 1), 0 0 80px rgba(255, 0, 100, 0.7); }
-        }
-
-        .subtitle {
-            color: #ffaaaa;
-            font-size: 20px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            letter-spacing: 1px;
-        }
-
-        /* ============ قلب بزرگ ============ */
-        .big-heart-wrapper {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-            margin: 20px 0;
-        }
-
-        .big-heart {
-            font-size: 130px;
-            animation: heartbeat 1.2s ease-in-out infinite;
-            filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 80px rgba(255, 0, 100, 0.4));
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: block;
-            user-select: none;
-            position: relative;
-            z-index: 1;
-        }
-
-        .big-heart-wrapper:hover .big-heart {
-            transform: scale(1.25);
-            filter: drop-shadow(0 0 60px rgba(255, 0, 100, 1)) drop-shadow(0 0 120px rgba(255, 0, 100, 0.7));
-        }
-
-        .big-heart-wrapper:active .big-heart {
-            transform: scale(1.5);
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            14% { transform: scale(1.15); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.12); }
-            56% { transform: scale(1); }
-            70% { transform: scale(1.08); }
-            84% { transform: scale(1); }
-        }
-
-        .heart-glow {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 0, 100, 0.6), transparent 70%);
-            animation: glowPulse 1.2s ease-in-out infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.3; }
-        }
-
-        .click-hint {
-            display: block;
-            font-size: 17px;
-            color: #ffcccc;
-            margin-top: 15px;
-            animation: pulse 2s infinite;
-            letter-spacing: 1px;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-        }
-
-        /* ============ متن تایپ شونده ============ */
-        .typed-container {
-            min-height: 35px;
-            margin: 25px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .typed-text {
-            color: #ff9999;
-            font-size: 26px;
-            text-shadow: 0 0 15px rgba(255, 150, 150, 0.7);
-            transition: all 0.3s;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 3px;
-            height: 30px;
-            background: #ff6666;
-            margin-right: 6px;
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
-            border-radius: 2px;
-            box-shadow: 0 0 10px #ff6666;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* ============ پیام مخفی ============ */
-        .hidden-message {
-            display: none;
-            background: rgba(20, 0, 0, 0.85);
-            border: 2px solid #ff3366;
-            border-radius: 25px;
-            padding: 35px 30px;
-            margin-top: 20px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            animation: fadeInUp 0.8s ease-out;
-            max-width: 550px;
-            width: 90%;
-            box-shadow: 0 20px 50px rgba(255, 0, 100, 0.3), inset 0 0 30px rgba(255, 0, 100, 0.05);
-        }
-
-        .hidden-message.show {
-            display: block;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hidden-message h2 {
-            color: #ff6688;
-            font-size: 30px;
-            margin-bottom: 18px;
-            text-shadow: 0 0 15px rgba(255, 100, 130, 0.6);
-        }
-
-        .hidden-message p {
-            color: #ffcccc;
-            font-size: 18px;
-            line-height: 2;
-        }
-
-        .hidden-message strong {
-            color: #ff6688;
-            font-size: 20px;
-            display: block;
-            margin-top: 10px;
-        }
-
-        /* ============ کانفتی ============ */
-        .confetti-piece {
-            position: fixed;
-            pointer-events: none;
-            z-index: 100;
-            animation: confettiFall linear forwards;
-        }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 1; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(110vh) rotate(720deg) scale(0.2); opacity: 0; }
-        }
-
-        /* ============ قلب در محل کلیک ============ */
-        .click-heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 200;
-            font-size: 45px;
-            animation: popHeart 1.2s ease-out forwards;
-        }
-
-        @keyframes popHeart {
-            0% { transform: scale(0) rotate(0deg); opacity: 1; }
-            30% { transform: scale(1.6) rotate(15deg); opacity: 1; }
-            100% { transform: scale(0.3) rotate(-30deg) translateY(-120px); opacity: 0; }
-        }
-
-        /* ============ دکمه اسکرول ============ */
-        .scroll-down-btn {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff6688;
-            font-size: 45px;
-            animation: bounceDown 2s infinite;
-            cursor: pointer;
-            z-index: 5;
-            background: none;
-            border: none;
-            transition: all 0.3s;
-            text-shadow: 0 0 20px rgba(255, 100, 130, 0.6);
-        }
-
-        .scroll-down-btn:hover {
-            color: #ff3366;
-            text-shadow: 0 0 40px rgba(255, 50, 100, 1);
-            transform: translateX(-50%) scale(1.2);
-        }
-
-        @keyframes bounceDown {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-25px); }
-            60% { transform: translateX(-50%) translateY(-12px); }
-        }
-
-        /* ============ گالری ============ */
-        .gallery-section {
-            min-height: 100vh;
-            padding: 80px 20px 60px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .gallery-header {
-            margin-bottom: 50px;
-        }
-
-        .gallery-title {
-            color: #fff;
-            font-size: 40px;
-            margin-bottom: 12px;
-            text-shadow: 0 0 25px rgba(255, 0, 100, 0.7);
-            font-weight: bold;
-        }
-
-        .gallery-subtitle {
-            color: #ffaaaa;
-            font-size: 19px;
-            opacity: 0.85;
-        }
-
-        .gallery-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .gallery-item {
-            position: relative;
-            border-radius: 25px;
-            overflow: hidden;
-            cursor: pointer;
-            aspect-ratio: 3/4;
-            box-shadow: 0 15px 40px rgba(255, 0, 100, 0.25);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid rgba(255, 51, 102, 0.4);
-            background: #1a0000;
-            animation: fadeInUp 0.8s ease-out backwards;
-        }
-
-        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
-        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
-        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
-        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
-
-        .gallery-item:hover {
-            transform: translateY(-15px) scale(1.04);
-            box-shadow: 0 25px 60px rgba(255, 0, 100, 0.5);
-            border-color: #ff3366;
-            z-index: 10;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.12);
-        }
-
-        .gallery-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-            padding: 25px 15px 20px;
-            color: #fff;
-            transform: translateY(100%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-align: center;
-        }
-
-        .gallery-item:hover .gallery-overlay {
-            transform: translateY(0);
-        }
-
-        .gallery-overlay .heart-icon {
-            font-size: 35px;
-            display: block;
-            margin-bottom: 8px;
-            animation: heartbeat 1.2s infinite;
-        }
-
-        .gallery-overlay .caption {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ffcccc;
-            text-shadow: 0 0 10px rgba(255, 150, 150, 0.5);
-        }
-
-        /* ============ مودال ============ */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.97);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: modalFadeIn 0.3s ease-out;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .modal img {
-            max-width: 90%;
-            max-height: 75vh;
-            border-radius: 20px;
-            box-shadow: 0 0 60px rgba(255, 0, 100, 0.5);
-            animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid #ff3366;
-        }
-
-        @keyframes zoomIn {
-            from { transform: scale(0.3); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 25px;
-            right: 35px;
-            font-size: 55px;
-            color: #ff3366;
-            cursor: pointer;
-            z-index: 1001;
-            transition: all 0.3s;
-            background: none;
-            border: none;
-            line-height: 1;
-        }
-
-        .modal-close:hover {
-            transform: scale(1.3) rotate(90deg);
-            color: #ff6699;
-            text-shadow: 0 0 30px #ff3366;
-        }
-
-        .modal-caption {
-            color: #ffcccc;
-            font-size: 24px;
-            margin-top: 25px;
-            text-align: center;
-            text-shadow: 0 0 15px rgba(255, 150, 150, 0.5);
-            font-weight: bold;
-        }
-
-        .modal-nav {
-            position: absolute;
-            top: 50%;
-            font-size: 55px;
-            color: #ff3366;
-            cursor: pointer;
-            background: none;
-            border: none;
-            transform: translateY(-50%);
-            z-index: 1001;
-            transition: all 0.3s;
-            padding: 25px;
-        }
-
-        .modal-nav:hover {
-            transform: translateY(-50%) scale(1.3);
-            color: #ff6699;
-            text-shadow: 0 0 25px #ff3366;
-        }
-
-        .modal-prev { left: 15px; }
-        .modal-next { right: 15px; }
-
-        /* ============ دکمه موزیک ============ */
-        .music-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 50;
-            background: rgba(10, 0, 0, 0.7);
-            border: 2px solid #ff3366;
-            color: #ff6688;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 26px;
-            transition: all 0.4s;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(255, 0, 100, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .music-btn:hover {
-            background: rgba(255, 51, 102, 0.3);
-            transform: scale(1.15);
-            box-shadow: 0 8px 30px rgba(255, 0, 100, 0.6);
-        }
-
-        .music-btn.playing {
-            border-color: #00ff88;
-            color: #00ff88;
-            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
-            animation: musicPulse 1.5s infinite;
-        }
-
-        @keyframes musicPulse {
-            0%, 100% { box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3); }
-            50% { box-shadow: 0 5px 40px rgba(0, 255, 136, 0.7); }
-        }
-
-        /* ============ امضا ============ */
-        .signature {
-            color: #ff9999;
-            margin-top: 50px;
-            font-size: 18px;
-            opacity: 0.7;
-            text-align: center;
-            padding-bottom: 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .signature::before {
-            content: '💕 ';
-        }
-
-        .signature::after {
-            content: ' 💕';
-        }
-
-        /* ============ واکنش‌گرایی ============ */
-        @media (max-width: 768px) {
-            .title { font-size: 34px; }
-            .big-heart { font-size: 90px; }
-            .typed-text { font-size: 20px; }
-            .gallery-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
-            .gallery-title { font-size: 30px; }
-            .modal-nav { font-size: 40px; padding: 15px; }
-            .modal img { max-width: 95%; max-height: 55vh; }
-            .modal-close { font-size: 40px; top: 15px; right: 20px; }
-            .modal-caption { font-size: 18px; }
-            .hidden-message { padding: 25px 20px; }
-            .hidden-message h2 { font-size: 24px; }
-            .hidden-message p { font-size: 15px; }
-            .music-btn { width: 45px; height: 45px; font-size: 22px; bottom: 20px; left: 20px; }
-        }
-
-        @media (max-width: 480px) {
-            .title { font-size: 26px; }
-            .big-heart { font-size: 70px; }
-            .typed-text { font-size: 17px; }
-            .gallery-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .gallery-title { font-size: 24px; }
-            .gallery-overlay .caption { font-size: 14px; }
-            .click-hint { font-size: 14px; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <!-- قلب‌های شناور -->
     <div class="hearts-container" id="heartsContainer"></div>
 
@@ -614,17 +23,17 @@
         <div class="modal-caption" id="modalCaption"></div>
     </div>
 
-    <!-- ============ صفحه اصلی ============ -->
-    <div class="hero-section" id="heroSection">
+    <!-- ========== صفحه اصلی ========== -->
+    <div class="hero-section">
         <h1 class="title">✨ مائده عزیزم ✨</h1>
         <p class="subtitle">نگین قلبمی 💎</p>
-        
+
         <!-- قلب بزرگ -->
         <div class="big-heart-wrapper" id="bigHeartWrapper">
             <div class="heart-glow"></div>
             <span class="big-heart">❤️</span>
         </div>
-        <span class="click-hint">👆 کلیک کن روی قلب عشقم</span>
+        <span class="click-hint">👆 کلیک کن روی قلب</span>
 
         <!-- متن تایپ شونده -->
         <div class="typed-container">
@@ -646,4 +55,64 @@
         </div>
 
         <!-- دکمه اسکرول -->
-        <button class="scroll-down-btn" id="scrollToGallery"
+        <button class="scroll-down-btn" id="scrollToGallery">⌄</button>
+    </div>
+
+    <!-- ========== گالری ========== -->
+    <div class="gallery-section" id="gallerySection">
+        <div class="gallery-header">
+            <h2 class="gallery-title">📸 گالری خاطرات ما 📸</h2>
+            <p class="gallery-subtitle">هر عکس یه دنیا حرف داره برام...</p>
+        </div>
+
+        <div class="gallery-container" id="galleryContainer">
+            
+            <!-- عکس ۱ -->
+            <div class="gallery-item" data-caption="أنتِ نبضُ قلبي 💎">
+                <img src="https://cdn.imgurl.ir/uploads/n504548_20260620_234027.jpg" alt="عکس مائده" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="heart-icon">💖</span>
+                    <p class="caption">أنتِ نبضُ قلبي 💎</p>
+                </div>
+            </div>
+
+            <!-- عکس ۲ -->
+            <div class="gallery-item" data-caption="عشقي لكِ يفوقُ الخيال 😍">
+                <img src="https://cdn.imgurl.ir/uploads/d22079_20260620_234024.jpg" alt="عکس مائده" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="heart-icon">💝</span>
+                    <p class="caption">عشقي لكِ يفوقُ الخيال 😍</p>
+                </div>
+            </div>
+
+            <!-- عکس ۳ -->
+            <div class="gallery-item" data-caption="أنتِ أجملُ ما حدثَ لي ❤️">
+                <img src="https://cdn.imgurl.ir/uploads/k257753_20260620_234021.jpg" alt="عکس مائده" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="heart-icon">💗</span>
+                    <p class="caption">أنتِ أجملُ ما حدثَ لي ❤️</p>
+                </div>
+            </div>
+
+            <!-- عکس ۴ -->
+            <div class="gallery-item" data-caption="روحي فداكِ يا عمري 💕">
+                <img src="https://cdn.imgurl.ir/uploads/d660055_20260620_234018.jpg" alt="عکس مائده" loading="lazy">
+                <div class="gallery-overlay">
+                    <span class="heart-icon">💘</span>
+                    <p class="caption">روحي فداكِ يا عمري 💕</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="signature">ساخته شده با عشق برای مائده</div>
+
+    <!-- موزیک -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://dls.musics-fa.com/tagdl/ali/Majid%20Razavi%20-%20Negine%20Ghalbami%20(320).mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
