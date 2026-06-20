@@ -57,12 +57,10 @@
             }
         }
 
-        /* اسکرول روان */
         html {
             scroll-behavior: smooth;
         }
 
-        /* کانتینر اصلی */
         .main-container {
             position: relative;
             z-index: 2;
@@ -71,7 +69,6 @@
             padding: 20px;
         }
 
-        /* سکشن‌ها */
         .section {
             min-height: 100vh;
             display: flex;
@@ -82,7 +79,6 @@
             padding: 40px 20px;
         }
 
-        /* قلب بزرگ */
         .big-heart {
             font-size: 120px;
             cursor: pointer;
@@ -119,7 +115,6 @@
             50% { opacity: 1; }
         }
 
-        /* عنوان */
         .title {
             color: #fff;
             font-size: 48px;
@@ -151,7 +146,6 @@
             50% { opacity: 0; }
         }
 
-        /* پیام مخفی */
         .hidden-message {
             display: none;
             background: rgba(0, 0, 0, 0.7);
@@ -250,7 +244,6 @@
             transform: scale(1.1);
         }
 
-        /* overlay روی عکس */
         .gallery-overlay {
             position: absolute;
             bottom: 0;
@@ -278,7 +271,38 @@
             margin-top: 5px;
         }
 
-        /* مودال نمایش عکس بزرگ */
+        /* دکمه حذف عکس */
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ff3366;
+            color: #ff3366;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            opacity: 0;
+        }
+
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            background: #ff3366;
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        /* مودال */
         .modal {
             display: none;
             position: fixed;
@@ -371,7 +395,166 @@
             right: 20px;
         }
 
-        /* دکمه اسکرول به گالری */
+        /* ============ آپلودر ============ */
+        .upload-section {
+            margin: 30px auto;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .upload-area {
+            padding: 40px 30px;
+            border: 3px dashed #ff3366;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.4s;
+            background: rgba(0, 0, 0, 0.3);
+            color: #ffaaaa;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            background: rgba(255, 51, 102, 0.15);
+            border-color: #ff6699;
+            transform: scale(1.02);
+        }
+
+        .upload-area.dragover {
+            background: rgba(255, 51, 102, 0.25);
+            border-color: #ff3366;
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 100, 0.4);
+        }
+
+        .upload-area input {
+            display: none;
+        }
+
+        .upload-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .upload-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6688;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 14px;
+            color: #ffaaaa;
+            opacity: 0.8;
+        }
+
+        /* پیش‌نمایش آپلود */
+        .upload-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #ff3366;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #ff3366;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .preview-remove:hover {
+            background: #ff0033;
+            transform: scale(1.2);
+        }
+
+        /* دکمه آپلود */
+        .upload-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 35px;
+            background: linear-gradient(135deg, #ff3366, #cc0033);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            box-shadow: 0 5px 20px rgba(255, 0, 100, 0.4);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 0, 100, 0.6);
+        }
+
+        .upload-btn:active {
+            transform: translateY(0);
+        }
+
+        .upload-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* پیام خالی بودن گالری */
+        .empty-gallery {
+            text-align: center;
+            padding: 60px 20px;
+            color: #ffaaaa;
+            font-size: 18px;
+            display: none;
+        }
+
+        .empty-gallery.show {
+            display: block;
+        }
+
+        .empty-gallery .empty-icon {
+            font-size: 80px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        /* اسکرول دکمه */
         .scroll-down {
             position: absolute;
             bottom: 30px;
@@ -443,32 +626,16 @@
             padding-bottom: 50px;
         }
 
-        /* آپلودر عکس (برای اضافه کردن عکس) */
-        .upload-area {
-            margin: 30px auto;
-            padding: 30px;
-            border: 3px dashed #ff3366;
-            border-radius: 20px;
-            max-width: 500px;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: rgba(0, 0, 0, 0.3);
+        /* شمارنده عکس */
+        .photo-count {
             color: #ffaaaa;
-            text-align: center;
-        }
-
-        .upload-area:hover {
-            background: rgba(255, 51, 102, 0.15);
-            border-color: #ff6699;
-        }
-
-        .upload-area input {
-            display: none;
-        }
-
-        .upload-icon {
-            font-size: 50px;
-            margin-bottom: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid #ff336644;
         }
 
         /* واکنش‌گرایی */
@@ -496,6 +663,12 @@
                 max-width: 95%;
                 max-height: 60vh;
             }
+            .upload-area {
+                padding: 25px 20px;
+            }
+            .upload-icon {
+                font-size: 40px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -507,13 +680,13 @@
     </style>
 </head>
 <body>
-    <!-- کانتینر قلب‌های شناور -->
+    <!-- قلب‌های شناور -->
     <div class="hearts-container" id="heartsContainer"></div>
 
     <!-- دکمه موزیک -->
     <button class="music-btn" id="musicBtn" title="پخش/توقف موسیقی">🎵</button>
 
-    <!-- مودال نمایش عکس بزرگ -->
+    <!-- مودال -->
     <div class="modal" id="imageModal">
         <button class="modal-close" id="modalClose">&times;</button>
         <button class="modal-nav modal-prev" id="modalPrev">❮</button>
@@ -522,21 +695,18 @@
         <div class="modal-caption" id="modalCaption"></div>
     </div>
 
-    <!-- ============ سکشن اول: صفحه اصلی ============ -->
+    <!-- ============ صفحه اصلی ============ -->
     <div class="section" id="heroSection" style="position: relative;">
         <h1 class="title">✨ مائده عزیزم ✨</h1>
         
-        <!-- قلب بزرگ تعاملی -->
         <div class="big-heart" id="bigHeart" title="کلیک کن عشقم!">
             ❤️
         </div>
         <span class="click-hint">👆 کلیک کن روی قلب</span>
 
-        <!-- متن تایپ شونده -->
         <div class="typed-text" id="typedText"></div>
         <span class="cursor"></span>
 
-        <!-- پیام مخفی -->
         <div class="hidden-message" id="hiddenMessage">
             <h2>🌸 پیام من به تو 🌸</h2>
             <p>
@@ -549,469 +719,31 @@
             </p>
         </div>
 
-        <!-- دکمه اسکرول به گالری -->
         <button class="scroll-down" id="scrollToGallery" title="برو به گالری عکس‌ها">⌄</button>
     </div>
 
-    <!-- ============ سکشن دوم: گالری عکس ============ -->
+    <!-- ============ گالری و آپلودر ============ -->
     <div class="gallery-section" id="gallerySection">
         <h2 class="gallery-title">📸 گالری خاطرات ما 📸</h2>
-        <p class="gallery-subtitle">هر عکس یه دنیا حرف داره برام...</p>
+        <p class="gallery-subtitle">عکس‌های مائده جان رو اینجا بذار</p>
 
-        <!-- آپلودر عکس (برای اضافه کردن عکس جدید) -->
-        <div class="upload-area" id="uploadArea">
-            <div class="upload-icon">📁</div>
-            <p>کلیک کن تا عکس جدید اضافه کنی</p>
-            <small>یا عکس رو بکش و رها کن اینجا</small>
-            <input type="file" id="imageUpload" accept="image/*" multiple>
+        <!-- آپلودر -->
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">عکس‌های مائده رو اینجا بذار</div>
+                <div class="upload-hint">کلیک کن یا عکس رو بکش و رها کن</div>
+                <div class="upload-hint">می‌تونی چندتا عکس با هم آپلود کنی</div>
+                <input type="file" id="imageUpload" accept="image/*" multiple>
+            </div>
+            
+            <!-- پیش‌نمایش -->
+            <div class="upload-preview" id="uploadPreview"></div>
+            
+            <!-- دکمه آپلود -->
+            <button class="upload-btn" id="uploadBtn" disabled>
+                📤 آپلود عکس‌ها توی گالری
+            </button>
         </div>
 
-        <!-- گالری -->
-        <div class="gallery-container" id="galleryContainer">
-            <!-- عکس‌های پیش‌فرض (نمونه) -->
-            <div class="gallery-item" data-caption="زیباترین لحظه‌ها با تو 💕">
-                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💖</span>
-                    <p class="caption">زیباترین لحظه‌ها با تو</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="هر جا با تو باشم بهشته 🌹">
-                <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💝</span>
-                    <p class="caption">هر جا با تو باشم بهشته</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="خنده‌هات دنیامو روشن می‌کنه ✨">
-                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💗</span>
-                    <p class="caption">خنده‌هات دنیامو روشن می‌کنه</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="تو رویای قشنگ منی 😍">
-                <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💘</span>
-                    <p class="caption">تو رویای قشنگ منی</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="تا ابد مال همیم 💎">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💎</span>
-                    <p class="caption">تا ابد مال همیم</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="با تو زندگی معنی داره 🦋">
-                <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=400&h=500&fit=crop" 
-                     alt="عکس عاشقانه" 
-                     loading="lazy"
-                     onerror="this.parentElement.style.display='none'">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">🦋</span>
-                    <p class="caption">با تو زندگی معنی داره</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="signature">— ساخته شده با عشق برای مائده —</div>
-
-    <!-- صدای بکگراند -->
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        // ============ قلب‌های شناور ============
-        function createFloatingHeart() {
-            const heartsContainer = document.getElementById('heartsContainer');
-            const heart = document.createElement('span');
-            heart.classList.add('floating-heart');
-            
-            const hearts = ['❤️', '💕', '💖', '💗', '💝', '💘', '🌸', '✨', '💎', '🦋'];
-            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-            
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.fontSize = (Math.random() * 30 + 15) + 'px';
-            heart.style.animationDuration = (Math.random() * 5 + 4) + 's';
-            heart.style.animationDelay = Math.random() * 2 + 's';
-            
-            heartsContainer.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 7000);
-        }
-
-        setInterval(createFloatingHeart, 400);
-        for (let i = 0; i < 8; i++) {
-            setTimeout(createFloatingHeart, i * 300);
-        }
-
-        // ============ تایپ افکت ============
-        const messages = [
-            "تو نوری تو قلب منی...",
-            "هر لحظه با تو قشنگه...",
-            "مائده یعنی عشق واقعی...",
-            "دوست دارم بیشتر از هرچیزی..."
-        ];
-        
-        let messageIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        const typedText = document.getElementById('typedText');
-        
-        function typeEffect() {
-            const currentMessage = messages[messageIndex];
-            
-            if (isDeleting) {
-                typedText.textContent = currentMessage.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typedText.textContent = currentMessage.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            let speed = isDeleting ? 50 : 100;
-            
-            if (!isDeleting && charIndex === currentMessage.length) {
-                speed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                messageIndex = (messageIndex + 1) % messages.length;
-                speed = 500;
-            }
-            
-            setTimeout(typeEffect, speed);
-        }
-        
-        typeEffect();
-
-        // ============ کلیک روی قلب بزرگ ============
-        const bigHeart = document.getElementById('bigHeart');
-        const hiddenMessage = document.getElementById('hiddenMessage');
-        let isMessageShown = false;
-
-        bigHeart.addEventListener('click', function(event) {
-            if (!isMessageShown) {
-                hiddenMessage.classList.add('show');
-                isMessageShown = true;
-                createConfetti();
-            }
-            
-            createConfetti();
-            
-            bigHeart.style.transform = 'scale(1.4)';
-            setTimeout(() => {
-                bigHeart.style.transform = '';
-            }, 200);
-            
-            createClickHeart(event);
-        });
-
-        // ایجاد قلب در محل کلیک
-        function createClickHeart(e) {
-            const heart = document.createElement('span');
-            heart.innerHTML = '💖';
-            heart.style.cssText = `
-                position: fixed;
-                pointer-events: none;
-                z-index: 5;
-                font-size: 40px;
-                left: ${e.clientX - 20}px;
-                top: ${e.clientY - 20}px;
-                animation: popHeart 1s ease-out forwards;
-            `;
-            document.body.appendChild(heart);
-            
-            setTimeout(() => heart.remove(), 1000);
-        }
-
-        // ============ کانفتی ============
-        function createConfetti() {
-            const colors = ['#ff3366', '#ff6699', '#ff99cc', '#ffccdd', '#ff6666', '#ff0033', '#ff9999', '#fff', '#ffd700', '#ff6347'];
-            
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.classList.add('confetti');
-                    
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.top = -20 + 'px';
-                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                    confetti.style.animationDelay = Math.random() * 0.5 + 's';
-                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                    
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => confetti.remove(), 3500);
-                }, i * 30);
-            }
-        }
-
-        // ============ گالری و مودال ============
-        const modal = document.getElementById('imageModal');
-        const modalImage = document.getElementById('modalImage');
-        const modalCaption = document.getElementById('modalCaption');
-        const modalClose = document.getElementById('modalClose');
-        const modalPrev = document.getElementById('modalPrev');
-        const modalNext = document.getElementById('modalNext');
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        
-        let currentImageIndex = 0;
-        let galleryArray = [];
-
-        function updateGalleryArray() {
-            galleryArray = Array.from(document.querySelectorAll('.gallery-item'));
-        }
-        updateGalleryArray();
-
-        // باز کردن مودال با کلیک روی عکس
-        document.addEventListener('click', function(e) {
-            const galleryItem = e.target.closest('.gallery-item');
-            if (galleryItem) {
-                updateGalleryArray();
-                currentImageIndex = galleryArray.indexOf(galleryItem);
-                openModal(currentImageIndex);
-            }
-        });
-
-        function openModal(index) {
-            if (galleryArray.length === 0) return;
-            
-            const item = galleryArray[index];
-            const img = item.querySelector('img');
-            const caption = item.getAttribute('data-caption');
-            
-            modalImage.src = img.src;
-            modalImage.alt = img.alt;
-            modalCaption.textContent = caption || '';
-            modal.classList.add('active');
-            
-            // به‌روزرسانی دکمه‌های قبل/بعد
-            modalPrev.style.display = galleryArray.length > 1 ? 'block' : 'none';
-            modalNext.style.display = galleryArray.length > 1 ? 'block' : 'none';
-            
-            createConfetti();
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-
-        function nextImage() {
-            updateGalleryArray();
-            currentImageIndex = (currentImageIndex + 1) % galleryArray.length;
-            openModal(currentImageIndex);
-        }
-
-        function prevImage() {
-            updateGalleryArray();
-            currentImageIndex = (currentImageIndex - 1 + galleryArray.length) % galleryArray.length;
-            openModal(currentImageIndex);
-        }
-
-        modalClose.addEventListener('click', closeModal);
-        modalNext.addEventListener('click', nextImage);
-        modalPrev.addEventListener('click', prevImage);
-
-        // بستن مودال با کلیک روی بک‌گراند
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-
-        // کیبورد نویگیشن
-        document.addEventListener('keydown', function(e) {
-            if (!modal.classList.contains('active')) return;
-            
-            if (e.key === 'Escape') {
-                closeModal();
-            } else if (e.key === 'ArrowRight') {
-                nextImage();
-            } else if (e.key === 'ArrowLeft') {
-                prevImage();
-            }
-        });
-
-        // ============ آپلود عکس ============
-        const uploadArea = document.getElementById('uploadArea');
-        const imageUpload = document.getElementById('imageUpload');
-        const galleryContainer = document.getElementById('galleryContainer');
-
-        uploadArea.addEventListener('click', function() {
-            imageUpload.click();
-        });
-
-        imageUpload.addEventListener('change', function(e) {
-            const files = e.target.files;
-            handleFiles(files);
-        });
-
-        // درگ و دراپ
-        uploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.style.borderColor = '#ff6699';
-            this.style.background = 'rgba(255, 51, 102, 0.2)';
-        });
-
-        uploadArea.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            this.style.borderColor = '#ff3366';
-            this.style.background = 'rgba(0, 0, 0, 0.3)';
-        });
-
-        uploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.style.borderColor = '#ff3366';
-            this.style.background = 'rgba(0, 0, 0, 0.3)';
-            
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-
-        function handleFiles(files) {
-            Array.from(files).forEach(file => {
-                if (!file.type.startsWith('image/')) return;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    addImageToGallery(e.target.result, 'عکس جدید از خاطراتمون 💕');
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        function addImageToGallery(src, caption) {
-            const galleryItem = document.createElement('div');
-            galleryItem.classList.add('gallery-item');
-            galleryItem.setAttribute('data-caption', caption);
-            galleryItem.style.animation = 'fadeInUp 0.6s ease-out';
-            
-            galleryItem.innerHTML = `
-                <img src="${src}" alt="عکس مائده" loading="lazy">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💖</span>
-                    <p class="caption">${caption}</p>
-                </div>
-            `;
-            
-            // اضافه کردن به ابتدای گالری
-            galleryContainer.insertBefore(galleryItem, galleryContainer.firstChild);
-            
-            // به‌روزرسانی آرایه گالری
-            updateGalleryArray();
-            
-            createConfetti();
-            
-            // اسکرول به گالری
-            document.getElementById('gallerySection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // ============ اسکرول به گالری ============
-        document.getElementById('scrollToGallery').addEventListener('click', function() {
-            document.getElementById('gallerySection').scrollIntoView({ behavior: 'smooth' });
-            createConfetti();
-        });
-
-        // ============ موزیک ============
-        const bgMusic = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        let isMusicPlaying = false;
-        
-        bgMusic.volume = 0.4;
-        
-        musicBtn.addEventListener('click', function() {
-            if (isMusicPlaying) {
-                bgMusic.pause();
-                musicBtn.innerHTML = '🎵';
-                musicBtn.style.borderColor = '#ff3366';
-            } else {
-                bgMusic.play().catch(e => console.log('برای پخش موزیک نیاز به تعامل کاربر هست'));
-                musicBtn.innerHTML = '🔊';
-                musicBtn.style.borderColor = '#00ff88';
-            }
-            isMusicPlaying = !isMusicPlaying;
-        });
-
-        // ============ افکت موس ============
-        document.addEventListener('mousemove', function(e) {
-            if (Math.random() > 0.85) {
-                const particle = document.createElement('span');
-                particle.innerHTML = '✨';
-                particle.style.cssText = `
-                    position: fixed;
-                    pointer-events: none;
-                    z-index: 1;
-                    font-size: ${Math.random() * 10 + 5}px;
-                    left: ${e.clientX}px;
-                    top: ${e.clientY}px;
-                    animation: particleFade 1s ease-out forwards;
-                `;
-                document.body.appendChild(particle);
-                setTimeout(() => particle.remove(), 1000);
-            }
-        });
-
-        // ============ کیبورد ایستراگ ============
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'm' || e.key === 'م') {
-                hiddenMessage.classList.toggle('show');
-                if (hiddenMessage.classList.contains('show')) {
-                    createConfetti();
-                }
-            }
-        });
-
-        // ============ استایل‌های اضافی ============
-        const extraStyles = document.createElement('style');
-        extraStyles.textContent = `
-            @keyframes popHeart {
-                0% { transform: scale(0.5); opacity: 1; }
-                50% { transform: scale(1.5); opacity: 0.8; }
-                100% { transform: scale(0); opacity: 0; transform: translateY(-100px); }
-            }
-            @keyframes particleFade {
-                0% { opacity: 1; transform: translate(0, 0) scale(1); }
-                100% { opacity: 0; transform: translate(${Math.random() * 40 - 20}px, -30px) scale(0); }
-            }
-        `;
-        document.head.appendChild(extraStyles);
-
-        // ============ لود اولیه ============
-        updateGalleryArray();
-        
-        console.log('❤️ سلام مائده جان! این سایت با عشق برای تو ساخته شده ❤️');
-        console.log('💕 هر روز با تو قشنگه...');
-        console.log('📸 می‌تونی عکس‌های خودتون رو هم به گالری اضافه کنی!');
-    </script>
-</body>
-</html>
+        <!-- شمارند
