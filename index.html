@@ -13,14 +13,21 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #1a0a0a, #3d0a0a, #1a0a0a);
+            background: linear-gradient(135deg, #0d0000, #2d0000, #1a0000, #0d0000);
+            background-size: 400% 400%;
+            animation: bgMove 15s ease infinite;
             font-family: 'Vazirmatn', 'Tahoma', sans-serif;
             overflow-x: hidden;
             cursor: default;
             position: relative;
         }
 
-        /* قلب‌های شناور */
+        @keyframes bgMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ============ قلب‌های شناور ============ */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -40,36 +47,32 @@
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) rotate(0deg) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-                transform: translateY(-10vh) rotate(36deg) scale(1);
-            }
-            90% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-110vh) rotate(360deg) scale(0.3);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) rotate(0deg) scale(0); opacity: 0; }
+            10% { opacity: 0.9; transform: translateY(-10vh) rotate(36deg) scale(1.1); }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(0.2); opacity: 0; }
         }
 
+        /* ============ ذرات موس ============ */
+        .mouse-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: particleFade 1s ease-out forwards;
+        }
+
+        @keyframes particleFade {
+            0% { opacity: 1; transform: translate(0, 0) scale(1); }
+            100% { opacity: 0; transform: translate(var(--dx), -40px) scale(0); }
+        }
+
+        /* ============ اسکرول ============ */
         html {
             scroll-behavior: smooth;
         }
 
-        .main-container {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .section {
+        /* ============ سکشن اصلی ============ */
+        .hero-section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -77,68 +80,131 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ============ تیتر ============ */
+        .title {
+            color: #fff;
+            font-size: 52px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(255, 0, 100, 0.9), 0 0 60px rgba(255, 0, 100, 0.5);
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 20px rgba(255, 0, 100, 0.7), 0 0 40px rgba(255, 0, 100, 0.3); }
+            100% { text-shadow: 0 0 40px rgba(255, 0, 100, 1), 0 0 80px rgba(255, 0, 100, 0.7); }
+        }
+
+        .subtitle {
+            color: #ffaaaa;
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        /* ============ قلب بزرگ ============ */
+        .big-heart-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            margin: 20px 0;
         }
 
         .big-heart {
-            font-size: 120px;
-            cursor: pointer;
+            font-size: 130px;
             animation: heartbeat 1.2s ease-in-out infinite;
-            filter: drop-shadow(0 0 30px rgba(255, 0, 0, 0.6));
-            transition: transform 0.3s;
-            display: inline-block;
+            filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 80px rgba(255, 0, 100, 0.4));
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: block;
             user-select: none;
+            position: relative;
+            z-index: 1;
         }
 
-        .big-heart:hover {
-            transform: scale(1.2);
-            filter: drop-shadow(0 0 50px rgba(255, 0, 100, 0.9));
+        .big-heart-wrapper:hover .big-heart {
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 60px rgba(255, 0, 100, 1)) drop-shadow(0 0 120px rgba(255, 0, 100, 0.7));
+        }
+
+        .big-heart-wrapper:active .big-heart {
+            transform: scale(1.5);
         }
 
         @keyframes heartbeat {
             0%, 100% { transform: scale(1); }
-            15% { transform: scale(1.15); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.1); }
-            60% { transform: scale(1); }
+            14% { transform: scale(1.15); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.12); }
+            56% { transform: scale(1); }
+            70% { transform: scale(1.08); }
+            84% { transform: scale(1); }
+        }
+
+        .heart-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 100, 0.6), transparent 70%);
+            animation: glowPulse 1.2s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.3; }
         }
 
         .click-hint {
             display: block;
-            font-size: 16px;
+            font-size: 17px;
             color: #ffcccc;
-            margin-top: 10px;
+            margin-top: 15px;
             animation: pulse 2s infinite;
+            letter-spacing: 1px;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
         }
 
-        .title {
-            color: #fff;
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 20px rgba(255, 0, 100, 0.8);
-            font-weight: bold;
+        /* ============ متن تایپ شونده ============ */
+        .typed-container {
+            min-height: 35px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .typed-text {
             color: #ff9999;
-            font-size: 24px;
-            min-height: 40px;
-            margin: 20px 0;
-            text-shadow: 0 0 10px rgba(255, 150, 150, 0.6);
+            font-size: 26px;
+            text-shadow: 0 0 15px rgba(255, 150, 150, 0.7);
+            transition: all 0.3s;
         }
 
         .cursor {
             display: inline-block;
             width: 3px;
-            height: 28px;
+            height: 30px;
             background: #ff6666;
-            margin-right: 5px;
+            margin-right: 6px;
             animation: blink 0.8s infinite;
             vertical-align: middle;
+            border-radius: 2px;
+            box-shadow: 0 0 10px #ff6666;
         }
 
         @keyframes blink {
@@ -146,16 +212,20 @@
             50% { opacity: 0; }
         }
 
+        /* ============ پیام مخفی ============ */
         .hidden-message {
             display: none;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(20, 0, 0, 0.85);
             border: 2px solid #ff3366;
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 30px;
-            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 35px 30px;
+            margin-top: 20px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             animation: fadeInUp 0.8s ease-out;
-            max-width: 600px;
+            max-width: 550px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(255, 0, 100, 0.3), inset 0 0 30px rgba(255, 0, 100, 0.05);
         }
 
         .hidden-message.show {
@@ -163,72 +233,145 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hidden-message h2 {
             color: #ff6688;
-            font-size: 28px;
-            margin-bottom: 15px;
+            font-size: 30px;
+            margin-bottom: 18px;
+            text-shadow: 0 0 15px rgba(255, 100, 130, 0.6);
         }
 
         .hidden-message p {
             color: #ffcccc;
             font-size: 18px;
-            line-height: 1.8;
+            line-height: 2;
         }
 
-        /* ============ گالری عکس ============ */
+        .hidden-message strong {
+            color: #ff6688;
+            font-size: 20px;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* ============ کانفتی ============ */
+        .confetti-piece {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            animation: confettiFall linear forwards;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg) scale(1); opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(0.2); opacity: 0; }
+        }
+
+        /* ============ قلب در محل کلیک ============ */
+        .click-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 200;
+            font-size: 45px;
+            animation: popHeart 1.2s ease-out forwards;
+        }
+
+        @keyframes popHeart {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            30% { transform: scale(1.6) rotate(15deg); opacity: 1; }
+            100% { transform: scale(0.3) rotate(-30deg) translateY(-120px); opacity: 0; }
+        }
+
+        /* ============ دکمه اسکرول ============ */
+        .scroll-down-btn {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff6688;
+            font-size: 45px;
+            animation: bounceDown 2s infinite;
+            cursor: pointer;
+            z-index: 5;
+            background: none;
+            border: none;
+            transition: all 0.3s;
+            text-shadow: 0 0 20px rgba(255, 100, 130, 0.6);
+        }
+
+        .scroll-down-btn:hover {
+            color: #ff3366;
+            text-shadow: 0 0 40px rgba(255, 50, 100, 1);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        @keyframes bounceDown {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-25px); }
+            60% { transform: translateX(-50%) translateY(-12px); }
+        }
+
+        /* ============ گالری ============ */
         .gallery-section {
             min-height: 100vh;
-            padding: 60px 20px;
+            padding: 80px 20px 60px;
             text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .gallery-header {
+            margin-bottom: 50px;
         }
 
         .gallery-title {
             color: #fff;
-            font-size: 36px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255, 0, 100, 0.6);
+            font-size: 40px;
+            margin-bottom: 12px;
+            text-shadow: 0 0 25px rgba(255, 0, 100, 0.7);
+            font-weight: bold;
         }
 
         .gallery-subtitle {
             color: #ffaaaa;
-            font-size: 18px;
-            margin-bottom: 40px;
+            font-size: 19px;
+            opacity: 0.85;
         }
 
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
         }
 
         .gallery-item {
             position: relative;
-            border-radius: 20px;
+            border-radius: 25px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 3/4;
-            box-shadow: 0 10px 30px rgba(255, 0, 100, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 3px solid transparent;
-            background: #1a0a0a;
+            box-shadow: 0 15px 40px rgba(255, 0, 100, 0.25);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 3px solid rgba(255, 51, 102, 0.4);
+            background: #1a0000;
+            animation: fadeInUp 0.8s ease-out backwards;
         }
 
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+
         .gallery-item:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 50px rgba(255, 0, 100, 0.6);
+            transform: translateY(-15px) scale(1.04);
+            box-shadow: 0 25px 60px rgba(255, 0, 100, 0.5);
             border-color: #ff3366;
             z-index: 10;
         }
@@ -237,11 +380,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.6s;
         }
 
         .gallery-item:hover img {
-            transform: scale(1.1);
+            transform: scale(1.12);
         }
 
         .gallery-overlay {
@@ -249,11 +392,11 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+            padding: 25px 15px 20px;
             color: #fff;
             transform: translateY(100%);
-            transition: transform 0.4s;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
         }
 
@@ -262,47 +405,20 @@
         }
 
         .gallery-overlay .heart-icon {
-            font-size: 30px;
+            font-size: 35px;
+            display: block;
+            margin-bottom: 8px;
             animation: heartbeat 1.2s infinite;
         }
 
         .gallery-overlay .caption {
-            font-size: 16px;
-            margin-top: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcccc;
+            text-shadow: 0 0 10px rgba(255, 150, 150, 0.5);
         }
 
-        /* دکمه حذف عکس */
-        .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.7);
-            border: 2px solid #ff3366;
-            color: #ff3366;
-            font-size: 16px;
-            cursor: pointer;
-            z-index: 5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            opacity: 0;
-        }
-
-        .gallery-item:hover .delete-btn {
-            opacity: 1;
-        }
-
-        .delete-btn:hover {
-            background: #ff3366;
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        /* مودال */
+        /* ============ مودال ============ */
         .modal {
             display: none;
             position: fixed;
@@ -310,42 +426,42 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.97);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            animation: modalFadeIn 0.3s ease-out;
         }
 
         .modal.active {
             display: flex;
         }
 
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .modal img {
             max-width: 90%;
             max-height: 75vh;
             border-radius: 20px;
-            box-shadow: 0 0 50px rgba(255, 0, 100, 0.5);
-            animation: zoomIn 0.4s ease-out;
+            box-shadow: 0 0 60px rgba(255, 0, 100, 0.5);
+            animation: zoomIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 3px solid #ff3366;
         }
 
         @keyframes zoomIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.3); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .modal-close {
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 50px;
+            top: 25px;
+            right: 35px;
+            font-size: 55px;
             color: #ff3366;
             cursor: pointer;
             z-index: 1001;
@@ -356,22 +472,24 @@
         }
 
         .modal-close:hover {
-            transform: scale(1.3);
+            transform: scale(1.3) rotate(90deg);
             color: #ff6699;
-            text-shadow: 0 0 20px #ff3366;
+            text-shadow: 0 0 30px #ff3366;
         }
 
         .modal-caption {
             color: #ffcccc;
-            font-size: 22px;
-            margin-top: 20px;
+            font-size: 24px;
+            margin-top: 25px;
             text-align: center;
+            text-shadow: 0 0 15px rgba(255, 150, 150, 0.5);
+            font-weight: bold;
         }
 
         .modal-nav {
             position: absolute;
             top: 50%;
-            font-size: 50px;
+            font-size: 55px;
             color: #ff3366;
             cursor: pointer;
             background: none;
@@ -379,303 +497,104 @@
             transform: translateY(-50%);
             z-index: 1001;
             transition: all 0.3s;
-            padding: 20px;
+            padding: 25px;
         }
 
         .modal-nav:hover {
             transform: translateY(-50%) scale(1.3);
             color: #ff6699;
+            text-shadow: 0 0 25px #ff3366;
         }
 
-        .modal-prev {
-            left: 20px;
-        }
+        .modal-prev { left: 15px; }
+        .modal-next { right: 15px; }
 
-        .modal-next {
-            right: 20px;
-        }
-
-        /* ============ آپلودر ============ */
-        .upload-section {
-            margin: 30px auto;
-            max-width: 500px;
-            width: 100%;
-        }
-
-        .upload-area {
-            padding: 40px 30px;
-            border: 3px dashed #ff3366;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.4s;
-            background: rgba(0, 0, 0, 0.3);
-            color: #ffaaaa;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .upload-area:hover {
-            background: rgba(255, 51, 102, 0.15);
-            border-color: #ff6699;
-            transform: scale(1.02);
-        }
-
-        .upload-area.dragover {
-            background: rgba(255, 51, 102, 0.25);
-            border-color: #ff3366;
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 0, 100, 0.4);
-        }
-
-        .upload-area input {
-            display: none;
-        }
-
-        .upload-icon {
-            font-size: 60px;
-            margin-bottom: 15px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .upload-text {
-            font-size: 20px;
-            font-weight: bold;
-            color: #ff6688;
-            margin-bottom: 8px;
-        }
-
-        .upload-hint {
-            font-size: 14px;
-            color: #ffaaaa;
-            opacity: 0.8;
-        }
-
-        /* پیش‌نمایش آپلود */
-        .upload-preview {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-            justify-content: center;
-        }
-
-        .preview-item {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #ff3366;
-            animation: fadeInUp 0.4s ease-out;
-        }
-
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .preview-remove {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: #ff3366;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .preview-remove:hover {
-            background: #ff0033;
-            transform: scale(1.2);
-        }
-
-        /* دکمه آپلود */
-        .upload-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 35px;
-            background: linear-gradient(135deg, #ff3366, #cc0033);
-            color: #fff;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
-            box-shadow: 0 5px 20px rgba(255, 0, 100, 0.4);
-        }
-
-        .upload-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(255, 0, 100, 0.6);
-        }
-
-        .upload-btn:active {
-            transform: translateY(0);
-        }
-
-        .upload-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-
-        /* پیام خالی بودن گالری */
-        .empty-gallery {
-            text-align: center;
-            padding: 60px 20px;
-            color: #ffaaaa;
-            font-size: 18px;
-            display: none;
-        }
-
-        .empty-gallery.show {
-            display: block;
-        }
-
-        .empty-gallery .empty-icon {
-            font-size: 80px;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        /* اسکرول دکمه */
-        .scroll-down {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #ff6688;
-            font-size: 40px;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-            z-index: 5;
-            background: none;
-            border: none;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-20px); }
-            60% { transform: translateX(-50%) translateY(-10px); }
-        }
-
-        /* کانفتی */
-        .confetti {
-            position: fixed;
-            pointer-events: none;
-            z-index: 3;
-            animation: confettiFall linear forwards;
-        }
-
-        @keyframes confettiFall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* دکمه موزیک */
+        /* ============ دکمه موزیک ============ */
         .music-btn {
             position: fixed;
             bottom: 30px;
             left: 30px;
-            z-index: 10;
-            background: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            background: rgba(10, 0, 0, 0.7);
             border: 2px solid #ff3366;
             color: #ff6688;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             cursor: pointer;
-            font-size: 24px;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
+            font-size: 26px;
+            transition: all 0.4s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(255, 0, 100, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .music-btn:hover {
             background: rgba(255, 51, 102, 0.3);
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 8px 30px rgba(255, 0, 100, 0.6);
         }
 
+        .music-btn.playing {
+            border-color: #00ff88;
+            color: #00ff88;
+            box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+            animation: musicPulse 1.5s infinite;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3); }
+            50% { box-shadow: 0 5px 40px rgba(0, 255, 136, 0.7); }
+        }
+
+        /* ============ امضا ============ */
         .signature {
             color: #ff9999;
-            margin-top: 40px;
+            margin-top: 50px;
             font-size: 18px;
-            opacity: 0.8;
+            opacity: 0.7;
             text-align: center;
-            padding-bottom: 50px;
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* شمارنده عکس */
-        .photo-count {
-            color: #ffaaaa;
-            font-size: 16px;
-            margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.4);
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 20px;
-            border: 1px solid #ff336644;
+        .signature::before {
+            content: '💕 ';
         }
 
-        /* واکنش‌گرایی */
+        .signature::after {
+            content: ' 💕';
+        }
+
+        /* ============ واکنش‌گرایی ============ */
         @media (max-width: 768px) {
-            .title {
-                font-size: 32px;
-            }
-            .big-heart {
-                font-size: 80px;
-            }
-            .typed-text {
-                font-size: 18px;
-            }
-            .gallery-container {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 15px;
-            }
-            .gallery-title {
-                font-size: 28px;
-            }
-            .modal-nav {
-                font-size: 35px;
-            }
-            .modal img {
-                max-width: 95%;
-                max-height: 60vh;
-            }
-            .upload-area {
-                padding: 25px 20px;
-            }
-            .upload-icon {
-                font-size: 40px;
-            }
+            .title { font-size: 34px; }
+            .big-heart { font-size: 90px; }
+            .typed-text { font-size: 20px; }
+            .gallery-container { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .gallery-title { font-size: 30px; }
+            .modal-nav { font-size: 40px; padding: 15px; }
+            .modal img { max-width: 95%; max-height: 55vh; }
+            .modal-close { font-size: 40px; top: 15px; right: 20px; }
+            .modal-caption { font-size: 18px; }
+            .hidden-message { padding: 25px 20px; }
+            .hidden-message h2 { font-size: 24px; }
+            .hidden-message p { font-size: 15px; }
+            .music-btn { width: 45px; height: 45px; font-size: 22px; bottom: 20px; left: 20px; }
         }
 
         @media (max-width: 480px) {
-            .gallery-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
+            .title { font-size: 26px; }
+            .big-heart { font-size: 70px; }
+            .typed-text { font-size: 17px; }
+            .gallery-container { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .gallery-title { font-size: 24px; }
+            .gallery-overlay .caption { font-size: 14px; }
+            .click-hint { font-size: 14px; }
         }
     </style>
 </head>
@@ -686,7 +605,7 @@
     <!-- دکمه موزیک -->
     <button class="music-btn" id="musicBtn" title="پخش/توقف موسیقی">🎵</button>
 
-    <!-- مودال -->
+    <!-- مودال عکس -->
     <div class="modal" id="imageModal">
         <button class="modal-close" id="modalClose">&times;</button>
         <button class="modal-nav modal-prev" id="modalPrev">❮</button>
@@ -696,17 +615,24 @@
     </div>
 
     <!-- ============ صفحه اصلی ============ -->
-    <div class="section" id="heroSection" style="position: relative;">
+    <div class="hero-section" id="heroSection">
         <h1 class="title">✨ مائده عزیزم ✨</h1>
+        <p class="subtitle">نگین قلبمی 💎</p>
         
-        <div class="big-heart" id="bigHeart" title="کلیک کن عشقم!">
-            ❤️
+        <!-- قلب بزرگ -->
+        <div class="big-heart-wrapper" id="bigHeartWrapper">
+            <div class="heart-glow"></div>
+            <span class="big-heart">❤️</span>
         </div>
-        <span class="click-hint">👆 کلیک کن روی قلب</span>
+        <span class="click-hint">👆 کلیک کن روی قلب عشقم</span>
 
-        <div class="typed-text" id="typedText"></div>
-        <span class="cursor"></span>
+        <!-- متن تایپ شونده -->
+        <div class="typed-container">
+            <span class="typed-text" id="typedText"></span>
+            <span class="cursor"></span>
+        </div>
 
+        <!-- پیام مخفی -->
         <div class="hidden-message" id="hiddenMessage">
             <h2>🌸 پیام من به تو 🌸</h2>
             <p>
@@ -719,31 +645,5 @@
             </p>
         </div>
 
-        <button class="scroll-down" id="scrollToGallery" title="برو به گالری عکس‌ها">⌄</button>
-    </div>
-
-    <!-- ============ گالری و آپلودر ============ -->
-    <div class="gallery-section" id="gallerySection">
-        <h2 class="gallery-title">📸 گالری خاطرات ما 📸</h2>
-        <p class="gallery-subtitle">عکس‌های مائده جان رو اینجا بذار</p>
-
-        <!-- آپلودر -->
-        <div class="upload-section">
-            <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">📁</div>
-                <div class="upload-text">عکس‌های مائده رو اینجا بذار</div>
-                <div class="upload-hint">کلیک کن یا عکس رو بکش و رها کن</div>
-                <div class="upload-hint">می‌تونی چندتا عکس با هم آپلود کنی</div>
-                <input type="file" id="imageUpload" accept="image/*" multiple>
-            </div>
-            
-            <!-- پیش‌نمایش -->
-            <div class="upload-preview" id="uploadPreview"></div>
-            
-            <!-- دکمه آپلود -->
-            <button class="upload-btn" id="uploadBtn" disabled>
-                📤 آپلود عکس‌ها توی گالری
-            </button>
-        </div>
-
-        <!-- شمارند
+        <!-- دکمه اسکرول -->
+        <button class="scroll-down-btn" id="scrollToGallery"
