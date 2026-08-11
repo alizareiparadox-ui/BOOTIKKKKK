@@ -1,316 +1,235 @@
-// ============ قلب‌های شناور ============
-function createFloatingHeart() {
-    const container = document.getElementById('heartsContainer');
-    const heart = document.createElement('span');
-    heart.classList.add('floating-heart');
-
-    const emojis = ['❤️', '💕', '💖', '💗', '💝', '💘', '🌸', '✨', '💎', '🦋', '🌹', '💫', '🕊️', '💜'];
-    heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-
-    heart.style.left = Math.random() * 100 + '%';
-    heart.style.fontSize = (Math.random() * 35 + 15) + 'px';
-    heart.style.animationDuration = (Math.random() * 6 + 5) + 's';
-    heart.style.animationDelay = Math.random() * 3 + 's';
-
-    container.appendChild(heart);
-
-    setTimeout(function() {
-        heart.remove();
-    }, 9000);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-setInterval(createFloatingHeart, 350);
-
-for (let i = 0; i < 10; i++) {
-    setTimeout(createFloatingHeart, i * 250);
+body {
+    font-family: Tahoma, Arial, sans-serif;
+    background: #0f1117;
+    color: #fff;
+    line-height: 1.9;
+    padding-bottom: 40px;
 }
 
-// ============ ذرات دنباله‌رو موس ============
-document.addEventListener('mousemove', function(e) {
-    if (Math.random() > 0.8) {
-        const particle = document.createElement('span');
-        particle.classList.add('mouse-particle');
-        
-        const stars = ['✨', '💫', '⭐', '🌟'];
-        particle.textContent = stars[Math.floor(Math.random() * stars.length)];
-        
-        particle.style.left = e.clientX + 'px';
-        particle.style.top = e.clientY + 'px';
-        particle.style.fontSize = (Math.random() * 12 + 6) + 'px';
-        particle.style.setProperty('--dx', (Math.random() * 50 - 25) + 'px');
-        
-        document.body.appendChild(particle);
-        
-        setTimeout(function() {
-            particle.remove();
-        }, 1000);
-    }
-});
-
-// ============ تایپ افکت ============
-const messages = [
-    "تو نوری تو قلب منی...",
-    "هر لحظه با تو قشنگه...",
-    "مائده یعنی عشق واقعی...",
-    "دوست دارم بیشتر از هرچیزی...",
-    "نگین قلبمی تو... 💎"
-];
-
-let messageIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typedText = document.getElementById('typedText');
-
-function typeEffect() {
-    const currentMessage = messages[messageIndex];
-
-    if (isDeleting) {
-        typedText.textContent = currentMessage.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typedText.textContent = currentMessage.substring(0, charIndex + 1);
-        charIndex++;
-    }
-
-    let speed = isDeleting ? 45 : 90;
-
-    if (!isDeleting && charIndex === currentMessage.length) {
-        speed = 2200;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        messageIndex = (messageIndex + 1) % messages.length;
-        speed = 400;
-    }
-
-    setTimeout(typeEffect, speed);
+.hero {
+    text-align: center;
+    padding: 45px 20px;
+    background: linear-gradient(135deg, #111827, #3b0d0d);
+    border-bottom: 2px solid #ff3030;
 }
 
-typeEffect();
-
-// ============ کلیک روی قلب ============
-const bigHeartWrapper = document.getElementById('bigHeartWrapper');
-const hiddenMessage = document.getElementById('hiddenMessage');
-let isMessageShown = false;
-
-bigHeartWrapper.addEventListener('click', function(event) {
-    if (!isMessageShown) {
-        hiddenMessage.classList.add('show');
-        isMessageShown = true;
-        createConfetti(80);
-    }
-
-    createConfetti(30);
-    createClickHeart(event.clientX, event.clientY);
-
-    // پالس قلب
-    const heart = bigHeartWrapper.querySelector('.big-heart');
-    heart.style.transform = 'scale(1.6)';
-    heart.style.filter = 'drop-shadow(0 0 80px rgba(255, 0, 100, 1))';
-    setTimeout(function() {
-        heart.style.transform = '';
-        heart.style.filter = '';
-    }, 300);
-});
-
-function createClickHeart(x, y) {
-    const heart = document.createElement('span');
-    heart.classList.add('click-heart');
-    heart.textContent = '💖';
-    heart.style.left = (x - 22) + 'px';
-    heart.style.top = (y - 22) + 'px';
-    document.body.appendChild(heart);
-    setTimeout(function() {
-        heart.remove();
-    }, 1200);
+.fire {
+    font-size: 55px;
 }
 
-// ============ کانفتی ============
-function createConfetti(count) {
-    if (!count) count = 50;
-
-    const colors = [
-        '#ff3366', '#ff6699', '#ff99cc', '#ffccdd', '#ff6666',
-        '#ff0033', '#ff9999', '#ffffff', '#ffd700', '#ff6347',
-        '#ff1493', '#ff69b4', '#ffc0cb', '#ff4444', '#ffaaaa'
-    ];
-
-    for (let i = 0; i < count; i++) {
-        setTimeout(function() {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti-piece');
-
-            confetti.style.left = Math.random() * 100 + '%';
-            confetti.style.top = -(Math.random() * 20 + 10) + 'px';
-            confetti.style.width = (Math.random() * 12 + 6) + 'px';
-            confetti.style.height = (Math.random() * 12 + 6) + 'px';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.animationDuration = (Math.random() * 3 + 2.5) + 's';
-            confetti.style.animationDelay = Math.random() * 0.8 + 's';
-
-            if (Math.random() > 0.5) {
-                confetti.style.borderRadius = '50%';
-            } else if (Math.random() > 0.7) {
-                confetti.style.width = (Math.random() * 6 + 3) + 'px';
-                confetti.style.height = (Math.random() * 20 + 10) + 'px';
-                confetti.style.borderRadius = '2px';
-            }
-
-            document.body.appendChild(confetti);
-
-            setTimeout(function() {
-                confetti.remove();
-            }, 4000);
-        }, i * 20);
-    }
+.hero h1 {
+    font-size: 32px;
+    color: #ff4b4b;
 }
 
-// ============ گالری و مودال ============
-const modal = document.getElementById('imageModal');
-const modalImage = document.getElementById('modalImage');
-const modalCaption = document.getElementById('modalCaption');
-const modalClose = document.getElementById('modalClose');
-const modalPrev = document.getElementById('modalPrev');
-const modalNext = document.getElementById('modalNext');
-
-let currentImageIndex = 0;
-let galleryArray = [];
-
-function updateGalleryArray() {
-    galleryArray = Array.from(document.querySelectorAll('.gallery-item'));
-}
-updateGalleryArray();
-
-// کلیک روی عکس
-document.addEventListener('click', function(e) {
-    const galleryItem = e.target.closest('.gallery-item');
-    if (galleryItem) {
-        updateGalleryArray();
-        currentImageIndex = galleryArray.indexOf(galleryItem);
-        openModal(currentImageIndex);
-    }
-});
-
-function openModal(index) {
-    if (galleryArray.length === 0) return;
-
-    const item = galleryArray[index];
-    const img = item.querySelector('img');
-    const caption = item.getAttribute('data-caption');
-
-    modalImage.src = img.src;
-    modalImage.alt = img.alt;
-    modalCaption.textContent = caption || '';
-    modal.classList.add('active');
-
-    if (galleryArray.length > 1) {
-        modalPrev.style.display = 'block';
-        modalNext.style.display = 'block';
-    } else {
-        modalPrev.style.display = 'none';
-        modalNext.style.display = 'none';
-    }
-
-    createConfetti(20);
+.hero p {
+    font-size: 18px;
+    color: #ddd;
 }
 
-function closeModal() {
-    modal.classList.remove('active');
+.reason {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    background: #681414;
+    color: #ff8c8c;
+    font-weight: bold;
 }
 
-function nextImage() {
-    updateGalleryArray();
-    if (galleryArray.length === 0) return;
-    currentImageIndex = (currentImageIndex + 1) % galleryArray.length;
-    openModal(currentImageIndex);
+.progress-box {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 25px;
+    text-align: center;
+    background: #181c25;
+    border-radius: 20px;
 }
 
-function prevImage() {
-    updateGalleryArray();
-    if (galleryArray.length === 0) return;
-    currentImageIndex = (currentImageIndex - 1 + galleryArray.length) % galleryArray.length;
-    openModal(currentImageIndex);
+.progress-bar {
+    width: 100%;
+    height: 18px;
+    background: #303541;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
 }
 
-modalClose.addEventListener('click', closeModal);
-modalNext.addEventListener('click', nextImage);
-modalPrev.addEventListener('click', prevImage);
+#progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #ff3030, #ff9d00);
+    transition: .4s;
+}
 
-modal.addEventListener('click', function(e) {
-    if (e.target === modal) closeModal();
-});
+#progressText {
+    color: #ffb347;
+    font-weight: bold;
+}
 
-// لمس برای موبایل
-let touchStartX = 0;
-modal.addEventListener('touchstart', function(e) {
-    touchStartX = e.touches[0].clientX;
-});
-modal.addEventListener('touchend', function(e) {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-        if (diff > 0) {
-            nextImage();
-        } else {
-            prevImage();
-        }
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 10px;
+}
+
+.day {
+    margin: 20px 0;
+    padding: 25px;
+    background: #191d26;
+    border-radius: 20px;
+    border-right: 6px solid #ff3d3d;
+    box-shadow: 0 8px 25px rgba(0,0,0,.25);
+}
+
+.day h2 {
+    margin-bottom: 15px;
+    font-size: 21px;
+}
+
+.day ul {
+    list-style: none;
+}
+
+.day li {
+    margin: 10px 0;
+    padding: 10px;
+    background: #222732;
+    border-radius: 10px;
+    transition: .2s;
+}
+
+.day li:hover {
+    transform: translateX(-5px);
+}
+
+input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    margin-left: 8px;
+    accent-color: #ff4141;
+    vertical-align: middle;
+}
+
+label {
+    cursor: pointer;
+}
+
+input:checked + * {
+    text-decoration: line-through;
+}
+
+.goal {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #30240f;
+    color: #ffc45c;
+}
+
+.day2 {
+    border-color: #ff8c00;
+}
+
+.day3 {
+    border-color: #ffd21c;
+}
+
+.day4 {
+    border-color: #27d86f;
+}
+
+.exam {
+    border-color: #457cff;
+}
+
+.final-day {
+    border-color: #ff3030;
+    background: linear-gradient(145deg, #241414, #191d26);
+}
+
+.rules,
+.motivation {
+    max-width: 900px;
+    margin: 25px auto;
+    padding: 30px;
+    border-radius: 20px;
+}
+
+.rules {
+    background: #241c0d;
+    border: 1px solid #8a6517;
+}
+
+.rules p {
+    margin: 8px 0;
+}
+
+.motivation {
+    text-align: center;
+    background: linear-gradient(145deg, #250e0e, #171923);
+    border: 1px solid #a51d1d;
+}
+
+.motivation h2 {
+    color: #ff4b4b;
+}
+
+.maede {
+    margin: 25px 0;
+    padding: 20px;
+    border-radius: 15px;
+    background: #351313;
+    color: #ffb1b1;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.motivation h1 {
+    color: #ff4d4d;
+    font-size: 25px;
+}
+
+#reset {
+    display: block;
+    margin: 30px auto;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    background: #343944;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#reset:hover {
+    background: #555b69;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 25px;
     }
-});
 
-// کیبورد
-document.addEventListener('keydown', function(e) {
-    if (!modal.classList.contains('active')) return;
-    if (e.key === 'Escape') closeModal();
-    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextImage();
-    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevImage();
-});
-
-// ============ اسکرول به گالری ============
-document.getElementById('scrollToGallery').addEventListener('click', function() {
-    document.getElementById('gallerySection').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(function() {
-        createConfetti(40);
-    }, 500);
-});
-
-// ============ موزیک ============
-const bgMusic = document.getElementById('bgMusic');
-const musicBtn = document.getElementById('musicBtn');
-let isMusicPlaying = false;
-
-bgMusic.volume = 0.5;
-
-musicBtn.addEventListener('click', function() {
-    if (isMusicPlaying) {
-        bgMusic.pause();
-        musicBtn.textContent = '🎵';
-        musicBtn.classList.remove('playing');
-        musicBtn.title = 'پخش موسیقی';
-    } else {
-        bgMusic.play().then(function() {
-            console.log('🎵 نگین قلبمی - مجید رضوی');
-        }).catch(function() {
-            alert('برای پخش موزیک یه بار دیگه کلیک کن ❤️');
-        });
-        musicBtn.textContent = '🔊';
-        musicBtn.classList.add('playing');
-        musicBtn.title = 'توقف موسیقی';
+    .hero p {
+        font-size: 15px;
     }
-    isMusicPlaying = !isMusicPlaying;
-});
 
-// ============ کیبورد ============
-document.addEventListener('keydown', function(e) {
-    if ((e.key === 'm' || e.key === 'م') && !modal.classList.contains('active')) {
-        hiddenMessage.classList.toggle('show');
-        if (hiddenMessage.classList.contains('show')) {
-            createConfetti(40);
-            isMessageShown = true;
-        }
+    .day {
+        padding: 18px;
     }
-});
 
-// ============ کنسول ============
-console.log('%c❤️ سلام مائده جان! ❤️', 'font-size:24px;color:#ff3366;');
-console.log('%cاین سایت با عشق برای تو ساخته شده 💕', 'font-size:16px;color:#ff9999;');
-console.log('%cنگین قلبمی 💎', 'font-size:18px;color:#ff6688;');
-console.log('%c🎵 مجید رضوی - نگین قلبمی', 'font-size:14px;color:#ffaaaa;');
+    .day h2 {
+        font-size: 18px;
+    }
+
+    .motivation h1 {
+        font-size: 20px;
+    }
+}
