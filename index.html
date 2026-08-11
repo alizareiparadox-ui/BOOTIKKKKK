@@ -3,102 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>برای عشق من، مائده ❤️</title>
+    <title>برنامه ۹ روزه تا کنکور ❤️</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="hearts-container" id="heartsContainer"></div>
+<header class="hero">
+    <div class="fire">🔥</div>
+    <h1>برنامه ۹ روزه تا کنکور</h1>
+    <p>فقط اجرا — بدون استرس، بدون بهانه، بدون توقف</p>
+    <div class="reason">❤️ به خاطر مائده</div>
+</header>
 
-    <button class="music-btn" id="musicBtn" title="پخش/توقف موسیقی">🎵</button>
+<section class="progress-box">
+    <h2>🏆 میزان پیشرفت</h2>
+    <div class="progress-bar">
+        <div id="progress"></div>
+    </div>
+    <p id="progressText">۰٪ انجام شده</p>
+</section>
 
-    <div class="modal" id="imageModal">
-        <button class="modal-close" id="modalClose">&times;</button>
-        <button class="modal-nav modal-prev" id="modalPrev">❮</button>
-        <button class="modal-nav modal-next" id="modalNext">❯</button>
-        <img src="" alt="عکس مائده" id="modalImage">
-        <div class="modal-caption" id="modalCaption"></div>
+<main id="days">
+
+    <section class="day day1">
+        <h2>🟥 روز اول | جغرافیا + روانشناسی + منطق</h2>
+        <ul>
+            <li><label><input type="checkbox"> جغرافیای دوازدهم</label></li>
+            <li><label><input type="checkbox"> جغرافیای یازدهم</label></li>
+            <li><label><input type="checkbox"> جغرافیای دهم</label></li>
+            <li><label><input type="checkbox"> روانشناسی</label></li>
+            <li><label><input type="checkbox"> منطق</label></li>
+        </ul>
+        <div class="goal">🎯 هدف: جمع‌کردن کامل مباحث و تثبیت نکات مهم.</div>
+    </section>
+
+    <section class="day day2">
+        <h2>🟧 روز دوم | جامعه‌شناسی + فلسفه + اقتصاد</h2>
+        <ul>
+            <li><label><input type="checkbox"> جامعه‌شناسی دوازدهم</label></li>
+            <li><label><input type="checkbox"> جامعه‌شناسی یازدهم</label></li>
+            <li><label><input type="checkbox"> جامعه‌شناسی دهم</label></li>
+            <li><label><input type="checkbox"> فلسفه ۱ — بخش اول</label></li>
+            <li><label><input type="checkbox"> اقتصاد — بخش اول</label></li>
+        </ul>
+        <div class="goal">🎯 هدف: مرور سریع + پیدا کردن نقاط ضعف.</div>
+    </section>
+
+    <section class="day day3">
+        <h2>🟨 روز سوم | تاریخ + فلسفه + اقتصاد</h2>
+        <ul>
+            <li><label><input type="checkbox"> تاریخ دوازدهم</label></li>
+            <li><label><input type="checkbox"> تاریخ یازدهم</label></li>
+            <li><label><input type="checkbox"> تاریخ دهم</label></li>
+            <li><label><input type="checkbox"> فلسفه دوازدهم</label></li>
+            <li><label><input type="checkbox"> فلسفه ۲ — بخش دوم</label></li>
+            <li><label><input type="checkbox"> اقتصاد — بخش دوم</label></li>
+        </ul>
+        <div class="goal">🎯 هدف: تکمیل مباحث باقی‌مانده و تثبیت مطالب.</div>
+    </section>
+
+    <section class="day day4">
+        <h2>🟩 روز چهارم | علوم و فنون + عربی</h2>
+        <ul>
+            <li><label><input type="checkbox"> تاریخ ادبیات</label></li>
+            <li><label><input type="checkbox"> سبک‌شناسی</label></li>
+            <li><label><input type="checkbox"> آرایه‌ها</label></li>
+            <li><label><input type="checkbox"> قرابت معنایی</label></li>
+            <li><label><input type="checkbox"> عربی — جمع‌بندی مباحث موردنیاز</label></li>
+        </ul>
+        <div class="goal">🎯 هدف: بستن پرونده مباحث مهم ادبیات و عربی.</div>
+    </section>
+
+    <!-- آزمون‌ها -->
+    <section class="day exam">
+        <h2>🟦 روز پنجم | آزمون و تست</h2>
+        <ul>
+            <li><label><input type="checkbox"> ۲ تا ۳ کنکور</label></li>
+            <li><label><input type="checkbox"> ۱۰ تست ریاضی</label></li>
+            <li><label><input type="checkbox"> ۱۲ تست عربی — ترجمه</label></li>
+            <li><label><input type="checkbox"> ۱ آزمون کامل فرهنگیان — هوش</label></li>
+            <li><label><input type="checkbox"> تعلیم و تربیت</label></li>
+            <li><label><input type="checkbox"> تحلیل کامل آزمون</label></li>
+        </ul>
+        <div class="goal">⏱️ همه تست‌ها زمان‌دار</div>
+    </section>
+
+    <section class="day exam">
+        <h2>🟪 روز ششم | آزمون و تست</h2>
+        <ul>
+            <li><label><input type="checkbox"> ۲ تا ۳ کنکور</label></li>
+            <li><label><input type="checkbox"> ۱۰ تست ریاضی</label></li>
+            <li><label><input type="checkbox"> ۱۲ تست عربی — ترجمه</label></li>
+            <li><label><input type="checkbox"> آزمون فرهنگیان — هوش و تعلیم و تربیت</label></li>
+            <li><label><input type="checkbox"> تحلیل کامل</label></li>
+        </ul>
+        <div class="goal">⏱️ زمان‌دار + تحلیل کامل</div>
+    </section>
+
+    <section class="day exam">
+        <h2>🟫 روز هفتم | آزمون و تست</h2>
+        <ul>
+            <li><label><input type="checkbox"> ۲ تا ۳ کنکور</label></li>
+            <li><label><input type="checkbox"> ۱۰ تست ریاضی</label></li>
+            <li><label><input type="checkbox"> ۱۲ تست عربی — ترجمه</label></li>
+            <li><label><input type="checkbox"> آزمون فرهنگیان</label></li>
+            <li><label><input type="checkbox"> تحلیل کامل</label></li>
+        </ul>
+        <div class="goal">⏱️ زمان‌دار + تحلیل کامل</div>
+    </section>
+
+    <section class="day exam">
+        <h2>🟦 روز هشتم | آزمون و تست</h2>
+        <ul>
+            <li><label><input type="checkbox"> ۲ تا ۳ کنکور</label></li>
+            <li><label><input type="checkbox"> ۱۰ تست ریاضی</label></li>
+            <li><label><input type="checkbox"> ۱۲ تست عربی — ترجمه</label></li>
+            <li><label><input type="checkbox"> آزمون فرهنگیان</label></li>
+            <li><label><input type="checkbox"> تحلیل کامل</label></li>
+        </ul>
+        <div class="goal">⏱️ زمان‌دار + تحلیل کامل</div>
+    </section>
+
+    <section class="day final-day">
+        <h2>🟥 روز نهم | آخرین فشار</h2>
+        <ul>
+            <li><label><input type="checkbox"> ۲ تا ۳ کنکور</label></li>
+            <li><label><input type="checkbox"> ۱۰ تست ریاضی</label></li>
+            <li><label><input type="checkbox"> ۱۲ تست عربی — ترجمه</label></li>
+            <li><label><input type="checkbox"> آزمون کامل فرهنگیان</label></li>
+            <li><label><input type="checkbox"> هوش + تعلیم و تربیت</label></li>
+            <li><label><input type="checkbox"> تحلیل کامل</label></li>
+        </ul>
+        <div class="goal">🔥 آخرین فشار — تا خط پایان ادامه بده!</div>
+    </section>
+
+</main>
+
+<section class="rules">
+    <h2>⚠️ قوانین طلایی</h2>
+    <p>🚫 تست شانسی ممنوع</p>
+    <p>⏱️ تست‌ها حتماً زمان‌دار</p>
+    <p>🔍 تحلیل تست اجباری</p>
+    <p>😌 اگر آزمون خراب شد، ناامید نشو؛ اشتباهاتت را پیدا کن و یاد بگیر.</p>
+</section>
+
+<section class="motivation">
+    <h2>🔥 الان وقت ترسیدن نیست</h2>
+    <p>تو قرار نیست گذشته را جبران کنی.</p>
+    <p>قرار است از همین لحظه بهترین عملکرد ممکن خودت را بسازی.</p>
+
+    <div class="maede">
+        ❤️ برای آینده‌ات بجنگ.<br>
+        ❤️ برای قبولی بجنگ.<br>
+        ❤️ به خاطر مائده کم نیار.<br>
+        ❤️ اما بیشتر از همه، برای آینده‌ای بجنگ که خودت به آن افتخار کنی.
     </div>
 
-    <div class="hero-section">
-        <h1 class="title">✨ مائده عزیزم ✨</h1>
-        <p class="subtitle">نگین قلبمی 💎</p>
+    <h1>«من انجامش می‌دم؛ به خاطر مائده ❤️»</h1>
+    <h2>🔥 فقط ۹ روز!</h2>
+</section>
 
-        <div class="big-heart-wrapper" id="bigHeartWrapper">
-            <div class="heart-glow"></div>
-            <span class="big-heart">❤️</span>
-        </div>
-        <span class="click-hint">👆 کلیک کن روی قلب</span>
+<button id="reset">🔄 پاک کردن تیک‌ها</button>
 
-        <div class="typed-container">
-            <span class="typed-text" id="typedText"></span>
-            <span class="cursor"></span>
-        </div>
-
-        <div class="hidden-message" id="hiddenMessage">
-            <h2>🌸 رسالتي إليكِ 🌸</h2>
-            <p>
-                مائدتي،<br>
-                أنتِ أقربُ شخصٍ لي ورغمَ ذلكَ بعيدةٌ جداً عني 🥺<br>
-                قلبي يشتاقُ إلى يديكِ وإلى أحضانكِ<br>
-                قلبي يشتاقُ إلى عينيكِ<br>
-                أردتُ أن أقولَ لكِ: أنتِ حياتي يا جميلة العيون<br>
-                <strong>ابقي لي ❤️💋</strong>
-            </p>
-        </div>
-
-        <button class="scroll-down-btn" id="scrollToGallery">⌄</button>
-    </div>
-
-    <div class="gallery-section" id="gallerySection">
-        <div class="gallery-header">
-            <h2 class="gallery-title">📸 زیباترین دختر دنیا ❤️💋</h2>
-            <p class="gallery-subtitle">هر عکس یه دنیا حرف داره برام...</p>
-        </div>
-
-        <div class="gallery-container" id="galleryContainer">
-            
-            <div class="gallery-item" data-caption="أنتِ نبضُ قلبي 💎">
-                <img src="https://uploadkon.ir/uploads/7cc120_2620260620-234027.jpg" alt="عکس مائده" loading="lazy">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💖</span>
-                    <p class="caption">أنتِ نبضُ قلبي 💎</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="عشقي لكِ يفوقُ الخيال 😍">
-                <img src="https://uploadkon.ir/uploads/796020_2620260620-234024.jpg" alt="عکس مائده" loading="lazy">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💝</span>
-                    <p class="caption">عشقي لكِ يفوقُ الخيال 😍</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="أنتِ أجملُ ما حدثَ لي ❤️">
-                <img src="https://uploadkon.ir/uploads/205420_2620260620-234021.jpg" alt="عکس مائده" loading="lazy">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💗</span>
-                    <p class="caption">أنتِ أجملُ ما حدثَ لي ❤️</p>
-                </div>
-            </div>
-
-            <div class="gallery-item" data-caption="روحي فداكِ يا عمري 💕">
-                <img src="https://uploadkon.ir/uploads/c6bb20_2620260620-234018.jpg" alt="عکس مائده" loading="lazy">
-                <div class="gallery-overlay">
-                    <span class="heart-icon">💘</span>
-                    <p class="caption">روحي فداكِ يا عمري 💕</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="signature">ساخته شده با عشق برای مائده</div>
-
-    <audio id="bgMusic" loop preload="auto">
-        <source src="https://dls.musics-fa.com/tagdl/ali/Majid%20Razavi%20-%20Negine%20Ghalbami%20(320).mp3" type="audio/mpeg">
-    </audio>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
